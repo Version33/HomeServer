@@ -1,0 +1,16 @@
+# Nix build results
+result
+result-*
+
+# VM state
+*.qcow2
+*.img
+
+# Temporary files
+*~
+*.swp
+*.swo
+.DS_Store
+
+# Local testing
+/test-data
