@@ -24,8 +24,25 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
+    # Network utilities
     wget
     curl
+
+    # Modern CLI tools
+    ripgrep  # Fast grep
+    fd       # Fast find
+    bat      # Cat with syntax highlighting
+    btop     # Modern process viewer
+    duf      # Better df
+    dust     # Better du
+
+    # File management
+    tree
+    ncdu     # Disk usage analyzer
+
+    # Compression
+    unzip
+    p7zip
   ];
 
   # Shell configuration
@@ -39,11 +56,20 @@
     vimAlias = true;
   };
 
+  # Terminal multiplexer
+  programs.tmux = {
+    enable = true;
+    clock24 = true;
+  };
+
   # Git configuration
   programs.git.enable = true;
 
-  # Htop configuration
+  # System monitoring
   programs.htop.enable = true;
+  programs.iotop.enable = true;
+  programs.iftop.enable = true;
+  programs.mtr.enable = true;  # Network diagnostic tool
 
   # Shell aliases
   environment.shellAliases = {
