@@ -2,6 +2,7 @@
 
 let
   # Container definitions
+  # To add a new container, copy an existing entry and modify the values
   containers = {
     radarr = {
       ip = "10.0.100.11";

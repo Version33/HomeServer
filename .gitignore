@@ -12,5 +12,18 @@ result-*
 *.swo
 .DS_Store
 
+# IDE and editor
+.vscode/
+.idea/
+*.code-workspace
+
+# Direnv
+.direnv/
+.envrc.local
+
 # Local testing
 /test-data
+
+# Old configuration files (pre-reorganization)
+/configuration.nix
+/incus-containers.nix
