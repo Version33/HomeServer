@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
-# Test connectivity to Jellyfin at each layer
+# Test connectivity to services at each layer
+#
+# This script tests connectivity to containers and services running in Incus.
+# It must be run INSIDE the VM or on the deployed system (not from the host).
+#
+# Usage:
+#   From host (via just): just test-connectivity
+#   From inside VM:       ./scripts/test-connectivity.sh
+#   Via SSH:              ssh -p 2222 incus-admin@localhost < scripts/test-connectivity.sh
 
 echo "=== 1. Test Jellyfin inside its container ==="
 incus exec jellyfin -- curl -v http://localhost:8096 2>&1 | head -20

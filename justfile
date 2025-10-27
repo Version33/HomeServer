@@ -42,9 +42,11 @@ deploy:
     @read
     sudo nixos-rebuild switch --flake .#incus-server
 
-# Test VM connectivity
+# Test VM connectivity (must be run inside the VM or on deployed system)
 test-connectivity:
-    @./scripts/test-connectivity.sh
+    @echo "Running connectivity tests inside the VM..."
+    @echo "(This requires the VM to be running and SSH to be accessible)"
+    ssh -p 2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null incus-admin@localhost 'bash -s' < scripts/test-connectivity.sh
 
 # Clean build artifacts
 clean:
