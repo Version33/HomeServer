@@ -57,6 +57,36 @@ let
         };
       };
     };
+
+    qbittorrent = {
+      ip = "10.0.100.13";
+      image = "docker:linuxserver/qbittorrent";
+      ports = {
+        web = 8080;
+        torrent = 6881;
+      };
+      env = {
+        PUID = "1000";
+        PGID = "1000";
+        TZ = "UTC";
+        WEBUI_PORT = "8080";
+        XDG_CACHE_HOME = "/cache";
+      };
+      volumes = {
+        config = {
+          source = "/var/lib/incus-containers/qbittorrent/config";
+          path = "/config";
+        };
+        downloads = {
+          source = "/var/lib/incus-containers/downloads";
+          path = "/downloads";
+        };
+        cache = {
+          source = "/var/lib/incus-containers/qbittorrent/cache";
+          path = "/cache";
+        };
+      };
+    };
   };
 
   # Helper function to create container setup script

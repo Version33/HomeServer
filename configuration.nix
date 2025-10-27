@@ -139,6 +139,13 @@
           reverse_proxy http://10.0.100.12:8096
         '';
       };
+
+      # QBitTorrent (HTTP only)
+      "http://qbittorrent.local" = {
+        extraConfig = ''
+          reverse_proxy http://10.0.100.13:8080
+        '';
+      };
     };
   };
 
