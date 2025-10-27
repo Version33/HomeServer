@@ -3,25 +3,6 @@
 let
   # Container definitions
   containers = {
-    qbittorrent = {
-      ip = "10.0.100.10";
-      image = "docker:linuxserver/qbittorrent";
-      ports = {
-        web = 8080;
-        torrent = 6881;
-      };
-      env = {
-        PUID = "1000";
-        PGID = "1000";
-        TZ = "UTC";
-        WEBUI_PORT = "8080";
-      };
-      volumes = {
-        config = "/var/lib/incus-containers/qbittorrent/config";
-        downloads = "/var/lib/incus-containers/qbittorrent/downloads";
-      };
-    };
-
     radarr = {
       ip = "10.0.100.11";
       image = "docker:linuxserver/radarr";
@@ -34,9 +15,18 @@ let
         TZ = "UTC";
       };
       volumes = {
-        config = "/var/lib/incus-containers/radarr/config";
-        movies = "/var/lib/incus-containers/radarr/movies";
-        downloads = "/var/lib/incus-containers/qbittorrent/downloads";
+        config = {
+          source = "/var/lib/incus-containers/radarr/config";
+          path = "/config";
+        };
+        movies = {
+          source = "/var/lib/incus-containers/radarr/movies";
+          path = "/movies";
+        };
+        downloads = {
+          source = "/var/lib/incus-containers/downloads";
+          path = "/downloads";
+        };
       };
     };
 
@@ -53,9 +43,18 @@ let
         TZ = "UTC";
       };
       volumes = {
-        config = "/var/lib/incus-containers/jellyfin/config";
-        movies = "/var/lib/incus-containers/radarr/movies";
-        cache = "/var/lib/incus-containers/jellyfin/cache";
+        config = {
+          source = "/var/lib/incus-containers/jellyfin/config";
+          path = "/config";
+        };
+        movies = {
+          source = "/var/lib/incus-containers/radarr/movies";
+          path = "/movies";
+        };
+        cache = {
+          source = "/var/lib/incus-containers/jellyfin/cache";
+          path = "/cache";
+        };
       };
     };
   };
@@ -65,9 +64,9 @@ let
     echo "Setting up container: ${name}"
 
     # Create volume directories
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (volName: path: ''
-      mkdir -p ${path}
-      chown 1000:1000 ${path}
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (volName: vol: ''
+      mkdir -p ${vol.source}
+      chown 1000:1000 ${vol.source}
     '') cfg.volumes)}
 
     # Check if container exists
@@ -77,12 +76,19 @@ let
       # Initialize container (don't start it yet)
       incus init ${cfg.image} ${name} --vm=false
 
-      # Configure static IP
+      # Set root disk size to 10GB to ensure enough space
+      incus config device override ${name} root size=10GB
+
+      # Map container UID/GID 1000 to host UID/GID 1000 for volume access
+      # This allows the container to access bind-mounted volumes properly
+      incus config set ${name} raw.idmap "both 1000 1000"
+
+      # Set static IP on the eth0 device (must use override since eth0 comes from profile)
       incus config device override ${name} eth0 ipv4.address=${cfg.ip}
 
       # Add volume mounts
-      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (volName: path: ''
-        incus config device add ${name} ${volName} disk source=${path} path=/mnt/${volName} || true
+      ${lib.concatStringsSep "\n" (lib.mapAttrsToList (volName: vol: ''
+        incus config device add ${name} ${volName} disk source=${vol.source} path=${vol.path} || true
       '') cfg.volumes)}
 
       # Set environment variables
@@ -92,7 +98,7 @@ let
 
       # Now start the container with all configuration applied
       incus start ${name}
-      echo "Container ${name} created and started"
+      echo "Container ${name} created and started with IP ${cfg.ip}"
     else
       echo "Container ${name} already exists"
 
@@ -109,7 +115,7 @@ in {
   systemd.tmpfiles.rules = [
     "d /var/lib/incus-containers 0755 root root -"
   ] ++ lib.flatten (lib.mapAttrsToList (name: cfg:
-    lib.mapAttrsToList (volName: path: "d ${path} 0755 1000 1000 -") cfg.volumes
+    lib.mapAttrsToList (volName: vol: "d ${vol.source} 0755 1000 1000 -") cfg.volumes
   ) containers);
 
   # Systemd service to manage containers declaratively

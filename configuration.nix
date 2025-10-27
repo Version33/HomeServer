@@ -108,9 +108,15 @@
   # Reverse proxy using Caddy
   services.caddy = {
     enable = true;
+
+    # Global options to disable automatic HTTPS for local development
+    globalConfig = ''
+      auto_https off
+    '';
+
     virtualHosts = {
-      # Incus web UI
-      "incus.local" = {
+      # Incus web UI (HTTPS)
+      "https://incus.local" = {
         extraConfig = ''
           reverse_proxy https://localhost:8443 {
             transport http {
@@ -120,22 +126,15 @@
         '';
       };
 
-      # qBittorrent
-      "qbittorrent.local" = {
-        extraConfig = ''
-          reverse_proxy http://10.0.100.10:8080
-        '';
-      };
-
-      # Radarr
-      "radarr.local" = {
+      # Radarr (HTTP only)
+      "http://radarr.local" = {
         extraConfig = ''
           reverse_proxy http://10.0.100.11:7878
         '';
       };
 
-      # Jellyfin
-      "jellyfin.local" = {
+      # Jellyfin (HTTP only)
+      "http://jellyfin.local" = {
         extraConfig = ''
           reverse_proxy http://10.0.100.12:8096
         '';
