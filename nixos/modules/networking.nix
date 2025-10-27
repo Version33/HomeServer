@@ -2,22 +2,20 @@
 
 {
   networking = {
-    hostName = "incus-server";
+    # Hostname is set in configuration.nix
 
-    # Use systemd-networkd for better container networking
+    # Use systemd-networkd for network management
     useNetworkd = true;
     useDHCP = false;
 
-    # Enable nftables (required by Incus)
+    # Enable nftables firewall
     nftables.enable = true;
 
     # Firewall configuration
     firewall = {
       enable = true;
-      # Incus web UI and Caddy
-      allowedTCPPorts = [ 8443 80 443 ];
-      # Allow traffic from containers
-      trustedInterfaces = [ "incusbr0" ];
+      # Caddy web server ports
+      allowedTCPPorts = [ 80 443 ];
     };
   };
 

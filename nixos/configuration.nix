@@ -4,16 +4,20 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/networking.nix
-    ./modules/incus.nix
+    ./modules/nixarr.nix
+    ./modules/jellyfin.nix
+    ./modules/qbittorrent.nix
     ./modules/caddy.nix
-    ./modules/containers.nix
   ];
 
   # Boot configuration
   boot.loader.grub = {
     enable = true;
-    device = lib.mkDefault "/dev/vda";  # Use mkDefault so it can be overridden for real hardware
+    device = lib.mkDefault "/dev/sda";  # Change for your hardware
   };
+
+  # System hostname
+  networking.hostName = "homeserver";
 
   # Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -30,38 +34,39 @@
   # Enable SSH for remote management
   services.openssh = {
     enable = true;
-    settings.PermitRootLogin = lib.mkDefault "yes";  # Disable this for production
+    settings.PermitRootLogin = "no";
   };
 
   # User configuration
-  users.users.incus-admin = {
+  users.users.admin = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "incus-admin" ];
-    initialPassword = "changeme";  # Change this for production!
+    extraGroups = [ "wheel" "media" ];
+    # Set password with: passwd admin
+    # Or use initialPassword for first boot
   };
 
-  # Allow wheel group to use sudo without password
-  # SECURITY: Disable this for production deployment
-  security.sudo.wheelNeedsPassword = lib.mkDefault false;
+  # Require password for sudo
+  security.sudo.wheelNeedsPassword = true;
 
-  # VM-specific configuration
-  # This section is only used when building as a VM
+  # VM-specific configuration for testing
+  # This section is only used when building with .vmVariant
   virtualisation.vmVariant = {
     virtualisation = {
       memorySize = 4096;
       cores = 4;
+      diskSize = 20480;  # 20GB
 
       # Forward ports from host to VM
       forwardPorts = [
         { from = "host"; host.port = 8080; guest.port = 80; }     # Caddy HTTP
         { from = "host"; host.port = 8443; guest.port = 443; }    # Caddy HTTPS
-        { from = "host"; host.port = 9443; guest.port = 8443; }   # Incus UI
         { from = "host"; host.port = 2222; guest.port = 22; }     # SSH
       ];
-
-      # Additional disk space for containers
-      diskSize = 32768; # 32GB
     };
+
+    # VM-specific overrides for easier testing
+    users.users.admin.initialPassword = "test";  # Easy password for VM testing
+    security.sudo.wheelNeedsPassword = lib.mkForce false;  # No sudo password in VM
   };
 
   # NixOS version

@@ -11,37 +11,29 @@
     '';
 
     virtualHosts = {
-      # Incus web UI (HTTPS)
-      "https://incus.local" = {
-        extraConfig = ''
-          reverse_proxy https://localhost:8443 {
-            transport http {
-              tls_insecure_skip_verify
-            }
-          }
-        '';
-      };
-
-      # Radarr (HTTP only)
+      # Radarr - Movie management
       "http://radarr.local" = {
         extraConfig = ''
-          reverse_proxy http://10.0.100.11:7878
+          reverse_proxy http://localhost:7878
         '';
       };
 
-      # Jellyfin (HTTP only)
+      # Jellyfin - Media server
       "http://jellyfin.local" = {
         extraConfig = ''
-          reverse_proxy http://10.0.100.12:8096
+          reverse_proxy http://localhost:8096
         '';
       };
 
-      # QBitTorrent (HTTP only)
+      # QBitTorrent - Torrent client
       "http://qbittorrent.local" = {
         extraConfig = ''
-          reverse_proxy http://10.0.100.13:8080
+          reverse_proxy http://localhost:8080
         '';
       };
     };
   };
+
+  # Open firewall for Caddy
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 }

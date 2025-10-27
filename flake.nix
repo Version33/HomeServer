@@ -1,50 +1,35 @@
 {
-  description = "NixOS Incus Home Server - Proxmox Replacement";
+  description = "NixOS Home Server with native service integration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixarr.url = "github:rasmus-kirk/nixarr";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, nixarr }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-    # NixOS configuration for the Incus server
+    # NixOS configuration
     nixosConfigurations = {
-      # VM configuration for testing
-      incus-server-vm = nixpkgs.lib.nixosSystem {
+      # Main server configuration
+      # To deploy: sudo nixos-rebuild switch --flake .#homeserver
+      homeserver = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
+          nixarr.nixosModules.default
           ./nixos/configuration.nix
-        ];
-      };
-
-      # Production configuration (for actual hardware deployment)
-      # To deploy: nixos-rebuild switch --flake .#incus-server
-      incus-server = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./nixos/configuration.nix
-          # Override VM-specific settings for production
-          {
-            # Production security settings
-            services.openssh.settings.PermitRootLogin = nixpkgs.lib.mkForce "no";
-            security.sudo.wheelNeedsPassword = nixpkgs.lib.mkForce true;
-
-            # Set proper boot device for your hardware
-            # Uncomment and modify for your system:
-            # boot.loader.grub.device = "/dev/sda";
-          }
         ];
       };
     };
 
-    # Packages for easy VM building and running
+    # Packages for VM testing
     packages.x86_64-linux = {
       # Build the VM: nix build .#vm
-      vm = self.nixosConfigurations.incus-server-vm.config.system.build.vm;
+      # Run with: ./result/bin/run-nixos-vm
+      vm = self.nixosConfigurations.homeserver.config.system.build.vm;
 
       # Default package
       default = self.packages.x86_64-linux.vm;
@@ -52,7 +37,7 @@
 
     # Development shell with tools
     devShells.x86_64-linux.default = pkgs.mkShell {
-      name = "incus-server-dev";
+      name = "homeserver-dev";
 
       buildInputs = with pkgs; [
         # Command runner
@@ -64,18 +49,17 @@
 
         # Utilities
         git
-
-        # For testing
         curl
         jq
       ];
 
       shellHook = ''
-        echo "🚀 Incus Server Development Environment"
+        echo "🏠 Home Server Development Environment"
         echo ""
         echo "Available commands:"
         echo "  just --list    # Show all available commands"
-        echo "  just run-vm    # Build and run the VM"
+        echo "  just build     # Build the configuration"
+        echo "  just deploy    # Deploy to the server"
         echo ""
       '';
     };

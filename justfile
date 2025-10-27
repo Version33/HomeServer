@@ -1,57 +1,58 @@
-# Incus Server Management
+# Home Server Management
 
 # Default recipe - show available commands
 default:
     @just --list
 
-# Build the VM
+# Build the system configuration
+build:
+    nixos-rebuild build --flake .#homeserver
+
+# Deploy to the server
+deploy:
+    @echo "Deploying to home server..."
+    sudo nixos-rebuild switch --flake .#homeserver
+
+# Test the configuration without deploying
+test:
+    nixos-rebuild test --flake .#homeserver
+
+# Build and switch in dry-run mode
+dry-run:
+    nixos-rebuild dry-build --flake .#homeserver
+
+# Build the VM for testing
 build-vm:
     nix build .#vm
 
 # Run the VM (builds if necessary)
 run-vm: build-vm
-    @echo "=== Incus Home Server VM ==="
+    @echo "=== Home Server VM ==="
     @echo ""
     @echo "Starting VM with port forwarding:"
     @echo "  - Port 8080  -> HTTP (Caddy)"
     @echo "  - Port 8443  -> HTTPS (Caddy)"
-    @echo "  - Port 9443  -> Incus Web UI"
-    @echo "  - Port 2222  -> SSH (user: incus-admin, pass: changeme)"
+    @echo "  - Port 2222  -> SSH (user: admin, pass: test)"
     @echo ""
     @echo "Add to /etc/hosts:"
-    @echo "  127.0.0.1 qbittorrent.local radarr.local jellyfin.local incus.local"
+    @echo "  127.0.0.1 qbittorrent.local radarr.local jellyfin.local"
     @echo ""
     @echo "Access services at:"
     @echo "  - QBitTorrent:  http://qbittorrent.local:8080"
     @echo "  - Radarr:       http://radarr.local:8080"
     @echo "  - Jellyfin:     http://jellyfin.local:8080"
-    @echo "  - Incus UI:     https://localhost:9443"
     @echo ""
     @echo "Press Ctrl+C to stop the VM"
     @echo ""
-    ./result/bin/run-incus-server-vm
+    ./result/bin/run-homeserver-vm
 
-# Build the system configuration (for deployment testing)
-build-system:
-    nixos-rebuild build --flake .#incus-server
-
-# Deploy to actual hardware (USE WITH CAUTION)
-deploy:
-    @echo "WARNING: This will deploy to actual hardware!"
-    @echo "Press Ctrl+C to cancel, or Enter to continue..."
-    @read
-    sudo nixos-rebuild switch --flake .#incus-server
-
-# Test VM connectivity (must be run inside the VM or on deployed system)
-test-connectivity:
-    @echo "Running connectivity tests inside the VM..."
-    @echo "(This requires the VM to be running and SSH to be accessible)"
-    ssh -p 2222 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null incus-admin@localhost 'bash -s' < scripts/test-connectivity.sh
+# SSH into the running VM
+ssh-vm:
+    ssh -p 2222 admin@localhost
 
 # Clean build artifacts
 clean:
     rm -rf result
-    rm -f incus-server.qcow2
 
 # Update flake inputs
 update:
@@ -66,27 +67,21 @@ format:
 check:
     nix flake check
 
-# SSH into the running VM
-ssh-vm:
-    ssh -p 2222 incus-admin@localhost
+# Show status of media services
+status:
+    systemctl status radarr jellyfin qbittorrent caddy
 
-# Show container status (run inside VM or on deployed system)
-container-status:
-    incus list
+# Restart all media services
+restart:
+    sudo systemctl restart radarr jellyfin qbittorrent caddy
 
-# Reset all containers (run inside VM or on deployed system)
-container-reset:
-    incus-container-reset
-
-# Open Incus UI in browser
-open-incus:
-    xdg-open https://localhost:9443
+# View logs for all media services
+logs:
+    journalctl -u radarr -u jellyfin -u qbittorrent -u caddy -f
 
 # Open all service UIs in browser
-open-all: open-incus
-    xdg-open http://qbittorrent.local:8080
-    xdg-open http://radarr.local:8080
-    xdg-open http://jellyfin.local:8080
-
-# Development: rebuild and run VM quickly
-dev: build-vm run-vm
+open:
+    @echo "Add to /etc/hosts: 127.0.0.1 qbittorrent.local radarr.local jellyfin.local"
+    xdg-open http://qbittorrent.local
+    xdg-open http://radarr.local
+    xdg-open http://jellyfin.local
