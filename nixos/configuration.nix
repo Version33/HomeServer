@@ -24,12 +24,31 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
-    vim
     wget
     curl
-    htop
-    git
   ];
+
+  # Shell configuration
+  programs.nushell.enable = true;
+
+  # Neovim configuration
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+  };
+
+  # Git configuration
+  programs.git.enable = true;
+
+  # Htop configuration
+  programs.htop.enable = true;
+
+  # Shell aliases
+  environment.shellAliases = {
+    v = "nvim";
+  };
 
   # Enable SSH for remote management
   services.openssh = {
@@ -41,6 +60,7 @@
   users.users.admin = {
     isNormalUser = true;
     extraGroups = [ "wheel" "media" ];
+    shell = pkgs.nushell;
     # Set password with: passwd admin
     # Or use initialPassword for first boot
   };
