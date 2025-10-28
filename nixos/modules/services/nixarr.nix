@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, pkgs-jellyfin-10-10, lib, ... }:
 
 {
   # Nixarr configuration for *arr apps
@@ -16,6 +16,12 @@
     #   enable = true;
     #   wgConf = "/path/to/wireguard.conf";
     # };
+
+    # Jellyfin - Media Server (pinned to 10.10.7 for database migration)
+    jellyfin = {
+      enable = true;
+      package = pkgs-jellyfin-10-10.jellyfin;
+    };
 
     # Radarr - Movie management
     radarr = { enable = true; };

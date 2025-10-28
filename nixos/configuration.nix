@@ -5,7 +5,6 @@
     ./hardware-configuration.nix
     ./modules/networking.nix
     ./modules/services/nixarr.nix
-    ./modules/services/jellyfin.nix
     ./modules/services/qbittorrent.nix
     ./modules/services/vpn.nix
     ./modules/services/caddy.nix
