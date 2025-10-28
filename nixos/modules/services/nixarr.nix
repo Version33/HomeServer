@@ -9,7 +9,7 @@
 
     # Media management directory structure
     # All media will be stored under /data
-    mediaDir = "/data/media";
+    mediaDir = "/mnt/bigdisk/nixarr";
 
     # VPN configuration (optional - configure if you want to route traffic through VPN)
     # vpn = {
