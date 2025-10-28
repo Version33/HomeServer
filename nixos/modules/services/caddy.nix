@@ -23,57 +23,42 @@
           reverse_proxy http://localhost:8123
         '';
       };
-
-      # Local-only services
-      "http://radarr.local" = {
-        extraConfig = ''
-          reverse_proxy http://localhost:7878
-        '';
-      };
-
-      "http://sonarr.local" = {
-        extraConfig = ''
-          reverse_proxy http://localhost:8989
-        '';
-      };
-
-      "http://prowlarr.local" = {
-        extraConfig = ''
-          reverse_proxy http://localhost:9696
-        '';
-      };
-
-      "http://jellyfin.local" = {
-        extraConfig = ''
-          reverse_proxy http://localhost:8096
-        '';
-      };
-
-      "http://jellyseerr.local" = {
-        extraConfig = ''
-          reverse_proxy http://localhost:5055
-        '';
-      };
-
-      "http://qbittorrent.local" = {
-        extraConfig = ''
-          reverse_proxy http://localhost:8080
-        '';
-      };
-
-      "http://cockpit.local" = {
-        extraConfig = ''
-          reverse_proxy http://localhost:9090
-        '';
-      };
-
-      "http://homeassistant.local" = {
-        extraConfig = ''
-          reverse_proxy http://localhost:8123
-        '';
-      };
     };
+
+    extraConfig = ''
+      :8097 {
+        reverse_proxy http://localhost:8096
+      }
+
+      :5056 {
+        reverse_proxy http://localhost:5055
+      }
+
+      :8124 {
+        reverse_proxy http://localhost:8123
+      }
+
+      :7879 {
+        reverse_proxy http://localhost:7878
+      }
+
+      :8990 {
+        reverse_proxy http://localhost:8989
+      }
+
+      :9697 {
+        reverse_proxy http://localhost:9696
+      }
+
+      :8081 {
+        reverse_proxy http://localhost:8080
+      }
+
+      :9091 {
+        reverse_proxy http://localhost:9090
+      }
+    '';
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 8097 5056 8124 7879 8990 9697 8081 9091 ];
 }
