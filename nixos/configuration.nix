@@ -79,7 +79,16 @@
   # Enable SSH for remote management
   services.openssh = {
     enable = true;
-    settings.PermitRootLogin = "no";
+    settings = {
+      PermitRootLogin = "no";
+      PasswordAuthentication = false; # Disable password auth by default
+    };
+
+    # Allow password auth only from local network
+    extraConfig = ''
+      Match Address 192.168.1.0/24
+        PasswordAuthentication yes
+    '';
   };
 
   # User configuration

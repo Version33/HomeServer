@@ -14,8 +14,8 @@
     # Firewall configuration
     firewall = {
       enable = true;
-      # Caddy web server ports
-      allowedTCPPorts = [ 80 443 ];
+      # SSH and Caddy web server ports
+      allowedTCPPorts = [ 22 80 443 ];
     };
   };
 
