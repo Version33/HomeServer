@@ -32,10 +32,10 @@
         '';
       };
 
-      # Netdata - System monitoring
-      "http://netdata.local" = {
+      # Cockpit - System monitoring
+      "http://cockpit.local" = {
         extraConfig = ''
-          reverse_proxy http://localhost:19999
+          reverse_proxy http://localhost:9090
         '';
       };
     };

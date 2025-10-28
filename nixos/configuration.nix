@@ -8,7 +8,7 @@
     ./modules/services/jellyfin.nix
     ./modules/services/qbittorrent.nix
     ./modules/services/caddy.nix
-    ./modules/services/netdata.nix
+    ./modules/services/cockpit.nix
   ];
 
   # Boot configuration
