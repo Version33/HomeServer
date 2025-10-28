@@ -60,5 +60,16 @@
     '';
   };
 
-  networking.firewall.allowedTCPPorts = [ 80 443 8097 5056 8124 7879 8990 9697 8081 9091 ];
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+    8097 # Jellyfin
+    5056 # Jellyseerr
+    8124 # Home Assistant
+    7879 # Radarr
+    8990 # Sonarr
+    9697 # Prowlarr
+    8081 # qBittorrent
+    9091 # Cockpit
+  ];
 }
