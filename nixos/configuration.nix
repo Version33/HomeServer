@@ -9,6 +9,7 @@
     ./modules/services/qbittorrent.nix
     ./modules/services/caddy.nix
     ./modules/services/cockpit.nix
+    ./modules/services/home-assistant.nix
   ];
 
   # Boot configuration

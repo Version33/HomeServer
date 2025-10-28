@@ -18,6 +18,12 @@
         '';
       };
 
+      "hass.versionthirtythr.ee" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:8123
+        '';
+      };
+
       # Local-only services
       "http://radarr.local" = {
         extraConfig = ''
@@ -58,6 +64,12 @@
       "http://cockpit.local" = {
         extraConfig = ''
           reverse_proxy http://localhost:9090
+        '';
+      };
+
+      "http://homeassistant.local" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:8123
         '';
       };
     };
