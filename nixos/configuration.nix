@@ -55,6 +55,9 @@
     # Compression
     unzip
     p7zip
+
+    # Database tools
+    sqlite
   ];
 
   # Neovim configuration
