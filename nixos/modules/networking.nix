@@ -24,9 +24,7 @@
     enable = true;
     networks."10-wan" = {
       matchConfig.Name = "enp*";
-      networkConfig = {
-        DHCP = "yes";
-      };
+      networkConfig = { DHCP = "yes"; };
     };
   };
 }

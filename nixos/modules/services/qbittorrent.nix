@@ -9,7 +9,7 @@
 
     # Run as a specific user
     user = "qbittorrent";
-    group = "media";  # Use the media group created by nixarr
+    group = "media"; # Use the media group created by nixarr
   };
 
   # Create qbittorrent user
@@ -23,7 +23,7 @@
   # Allow Radarr and other *arr apps to access downloads
   systemd.services.qbittorrent = {
     serviceConfig = {
-      UMask = "0002";  # Make files group-writable
+      UMask = "0002"; # Make files group-writable
     };
   };
 }

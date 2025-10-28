@@ -6,15 +6,16 @@
 
 {
   # Common kernel modules for most systems
-  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "nvme" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "ahci" "xhci_pci" "nvme" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];  # Change to "kvm-amd" for AMD processors
+  boot.kernelModules = [ "kvm-intel" ]; # Change to "kvm-amd" for AMD processors
   boot.extraModulePackages = [ ];
 
   # IMPORTANT: Update these filesystem mounts for your hardware!
   # You can find your disk IDs with: ls -l /dev/disk/by-uuid/
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";  # Update this!
+    device = "/dev/disk/by-label/nixos"; # Update this!
     fsType = "ext4";
   };
 

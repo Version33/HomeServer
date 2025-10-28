@@ -4,16 +4,16 @@
   imports = [
     ./hardware-configuration.nix
     ./modules/networking.nix
-    ./modules/nixarr.nix
-    ./modules/jellyfin.nix
-    ./modules/qbittorrent.nix
-    ./modules/caddy.nix
+    ./modules/services/nixarr.nix
+    ./modules/services/jellyfin.nix
+    ./modules/services/qbittorrent.nix
+    ./modules/services/caddy.nix
   ];
 
   # Boot configuration
   boot.loader.grub = {
     enable = true;
-    device = lib.mkDefault "/dev/sda";  # Change for your hardware
+    device = lib.mkDefault "/dev/sda"; # Change for your hardware
   };
 
   # System hostname
@@ -29,24 +29,21 @@
     curl
 
     # Modern CLI tools
-    ripgrep  # Fast grep
-    fd       # Fast find
-    bat      # Cat with syntax highlighting
-    btop     # Modern process viewer
-    duf      # Better df
-    dust     # Better du
+    ripgrep # Fast grep
+    fd # Fast find
+    bat # Cat with syntax highlighting
+    btop # Modern process viewer
+    duf # Better df
+    dust # Better du
 
     # File management
     tree
-    ncdu     # Disk usage analyzer
+    ncdu # Disk usage analyzer
 
     # Compression
     unzip
     p7zip
   ];
-
-  # Shell configuration
-  programs.nushell.enable = true;
 
   # Neovim configuration
   programs.neovim = {
@@ -69,12 +66,10 @@
   programs.htop.enable = true;
   programs.iotop.enable = true;
   programs.iftop.enable = true;
-  programs.mtr.enable = true;  # Network diagnostic tool
+  programs.mtr.enable = true; # Network diagnostic tool
 
   # Shell aliases
-  environment.shellAliases = {
-    v = "nvim";
-  };
+  environment.shellAliases = { v = "nvim"; };
 
   # Enable SSH for remote management
   services.openssh = {
@@ -83,12 +78,19 @@
   };
 
   # User configuration
-  users.users.admin = {
+  users.users.vee = {
     isNormalUser = true;
     extraGroups = [ "wheel" "media" ];
     shell = pkgs.nushell;
-    # Set password with: passwd admin
+    # Set password with: passwd vee
     # Or use initialPassword for first boot
+  };
+
+  # Home Manager configuration
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    users.vee = import ./modules/home;
   };
 
   # Require password for sudo
@@ -100,21 +102,34 @@
     virtualisation = {
       memorySize = 4096;
       cores = 4;
-      diskSize = 20480;  # 20GB
+      diskSize = 20480; # 20GB
 
       # Forward ports from host to VM
       forwardPorts = [
-        { from = "host"; host.port = 8080; guest.port = 80; }     # Caddy HTTP
-        { from = "host"; host.port = 8443; guest.port = 443; }    # Caddy HTTPS
-        { from = "host"; host.port = 2222; guest.port = 22; }     # SSH
+        {
+          from = "host";
+          host.port = 8080;
+          guest.port = 80;
+        } # Caddy HTTP
+        {
+          from = "host";
+          host.port = 8443;
+          guest.port = 443;
+        } # Caddy HTTPS
+        {
+          from = "host";
+          host.port = 2222;
+          guest.port = 22;
+        } # SSH
       ];
     };
 
     # VM-specific overrides for easier testing
-    users.users.admin.initialPassword = "test";  # Easy password for VM testing
-    security.sudo.wheelNeedsPassword = lib.mkForce false;  # No sudo password in VM
+    users.users.vee.initialPassword = "test"; # Easy password for VM testing
+    security.sudo.wheelNeedsPassword =
+      lib.mkForce false; # No sudo password in VM
   };
 
   # NixOS version
-  system.stateVersion = "24.05";
+  system.stateVersion = "25.05";
 }
