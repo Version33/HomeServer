@@ -20,41 +20,20 @@
       # Store this securely! Consider using agenix or sops-nix for secrets
       privateKeyFile = "/root/secrets/protonvpn-private.key";
 
-      address = [
-        # Your assigned IP addresses from Proton config
-        # Example: "10.2.0.2/32"
-        # Example: "fd7d:76ee:e68f:a993::2/128"
-      ];
+      address = [ "10.2.0.2/32" ];
 
-      dns = [ "10.2.0.1" ]; # Proton VPN DNS
+      dns = [ "10.2.0.1" ];
 
       peers = [{
-        # Proton VPN server public key from config
-        publicKey = "YOUR_SERVER_PUBLIC_KEY_HERE";
+        publicKey = "RAy+GOFz+bdG0l/wS+4J2AcpcVyUc2xbR6JR1Q8zJg4=";
 
-        # Proton VPN endpoint (server:port)
-        endpoint = "SERVER_IP_HERE:51820";
+        endpoint = "149.22.94.1:51820";
 
-        # Route all traffic through VPN
         allowedIPs = [ "0.0.0.0/0" "::/0" ];
 
         # Keep connection alive
         persistentKeepalive = 25;
       }];
-    };
-  };
-
-  # Bind qbittorrent to VPN interface (killswitch)
-  systemd.services.qbittorrent = {
-    requires = [ "wg-quick-protonvpn.service" ];
-    after = [ "wg-quick-protonvpn.service" ];
-
-    serviceConfig = {
-      # Network namespace isolation - qbittorrent can ONLY use VPN
-      PrivateNetwork = false;
-
-      # Bind to VPN interface
-      RestrictNetworkInterfaces = "protonvpn";
     };
   };
 

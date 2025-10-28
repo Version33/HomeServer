@@ -7,6 +7,7 @@
     ./modules/services/nixarr.nix
     ./modules/services/jellyfin.nix
     ./modules/services/qbittorrent.nix
+    ./modules/services/vpn.nix
     ./modules/services/caddy.nix
     ./modules/services/cockpit.nix
     ./modules/services/home-assistant
@@ -25,7 +26,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # nixpkgs.config.allowUnfree = true;
 
   # System packages
   environment.systemPackages = with pkgs; [
