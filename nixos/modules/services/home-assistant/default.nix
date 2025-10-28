@@ -1,6 +1,13 @@
 { config, pkgs, lib, ... }:
 
 {
+  imports = [
+    ./hacs.nix
+    ./bambu-lab.nix
+    ./zwave-js.nix
+    ./wyoming.nix
+  ];
+
   services.home-assistant = {
     enable = true;
     openFirewall = true;
@@ -8,6 +15,10 @@
       "esphome"
       "met"
       "radio_browser"
+      "zwave_js"
+      "wyoming"
+      "zha"
+      "lg_thinq"
     ];
     config = {
       default_config = {};
@@ -18,5 +29,9 @@
         use_x_forwarded_for = true;
       };
     };
+  };
+
+  users.users.hass = lib.mkIf config.services.home-assistant.enable {
+    extraGroups = [ "dialout" ];
   };
 }

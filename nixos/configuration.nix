@@ -9,7 +9,7 @@
     ./modules/services/qbittorrent.nix
     ./modules/services/caddy.nix
     ./modules/services/cockpit.nix
-    ./modules/services/home-assistant.nix
+    ./modules/services/home-assistant
   ];
 
   # Boot configuration
@@ -80,15 +80,9 @@
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "no";
-      PasswordAuthentication = false; # Disable password auth by default
+      PermitRootLogin = "yes";
+      PasswordAuthentication = true;
     };
-
-    # Allow password auth only from local network
-    extraConfig = ''
-      Match Address 192.168.1.0/24
-        PasswordAuthentication yes
-    '';
   };
 
   # User configuration
