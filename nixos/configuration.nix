@@ -14,13 +14,18 @@
   ];
 
   # Boot configuration
-  boot.loader.grub = {
-    enable = true;
-    device = lib.mkDefault "/dev/sda"; # Change for your hardware
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # System hostname
   networking.hostName = "homeserver";
+
+  fileSystems."/mnt/bigdisk" =
+    { device = "/dev/disk/by-uuid/c0957a15-b3f4-4b06-9f3a-cc26619518f3";
+      fsType = "ext4";
+    };
 
   # Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

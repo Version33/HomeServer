@@ -22,11 +22,11 @@
 
   # Allow Radarr and other *arr apps to access downloads
   # VPN killswitch: require VPN to be running
-  systemd.services.qbittorrent = {
-    requires = [ "wg-quick-protonvpn.service" ];
-    after = [ "wg-quick-protonvpn.service" ];
-    serviceConfig = {
-      UMask = "0002";
-    };
-  };
+#  systemd.services.qbittorrent = {
+#    requires = [ "wg-quick-protonvpn.service" ];
+#    after = [ "wg-quick-protonvpn.service" ];
+#    serviceConfig = {
+#      UMask = "0002";
+#    };
+#  };
 }

@@ -7,7 +7,7 @@
     after = [ "network.target" ];
     serviceConfig = {
       Type = "simple";
-      ExecStart = "${pkgs.zwave-js-server}/bin/zwave-server /dev/serial/by-id/usb-your-zwave-device --port 3000";
+      ExecStart = "${pkgs.zwave-js-server}/bin/zwave-server /dev/serial/by-id/usb-Zooz_800_Z-Wave_Stick_533D004242-if00 --port 3000";
       Restart = "on-failure";
       User = "zwave";
       Group = "dialout";

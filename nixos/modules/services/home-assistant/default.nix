@@ -22,6 +22,7 @@
     ];
     config = {
       default_config = {};
+      automation = "!include automations.yaml";
       http = {
         server_host = "127.0.0.1";
         server_port = 8123;
