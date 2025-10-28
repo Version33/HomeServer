@@ -18,10 +18,31 @@
         '';
       };
 
+      # Sonarr - TV show management
+      "http://sonarr.local" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:8989
+        '';
+      };
+
+      # Prowlarr - Indexer management
+      "http://prowlarr.local" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:9696
+        '';
+      };
+
       # Jellyfin - Media server
       "http://jellyfin.local" = {
         extraConfig = ''
           reverse_proxy http://localhost:8096
+        '';
+      };
+
+      # Jellyseerr - Request management
+      "http://jellyseerr.local" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:5055
         '';
       };
 

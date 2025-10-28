@@ -7,7 +7,8 @@
     settings = {
       WebService = {
         AllowUnencrypted = true;
-        Origins = lib.mkForce "http://cockpit.local:8080 http://cockpit.local http://localhost:9090";
+        Origins = lib.mkForce
+          "http://cockpit.local:8080 http://cockpit.local http://localhost:9090";
       };
     };
   };

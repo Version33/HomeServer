@@ -18,21 +18,16 @@
     # };
 
     # Radarr - Movie management
-    radarr = {
-      enable = true;
-      # Radarr runs on port 7878 by default
-    };
+    radarr = { enable = true; };
 
-    # Optional: Enable other *arr apps as needed
-    # sonarr = {
-    #   enable = true;
-    #   # Sonarr runs on port 8989 by default
-    # };
+    # Sonarr - TV show management
+    sonarr = { enable = true; };
 
-    # prowlarr = {
-    #   enable = true;
-    #   # Prowlarr runs on port 9696 by default
-    # };
+    # Prowlarr - Indexer management
+    prowlarr = { enable = true; };
+
+    # Jellyseerr - Request management for Jellyfin
+    jellyseerr = { enable = true; };
 
     # lidarr = {
     #   enable = true;
