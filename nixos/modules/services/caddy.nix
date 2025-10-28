@@ -31,6 +31,13 @@
           reverse_proxy http://localhost:8080
         '';
       };
+
+      # Netdata - System monitoring
+      "http://netdata.local" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:19999
+        '';
+      };
     };
   };
 

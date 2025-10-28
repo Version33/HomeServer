@@ -8,6 +8,7 @@
     ./modules/services/jellyfin.nix
     ./modules/services/qbittorrent.nix
     ./modules/services/caddy.nix
+    ./modules/services/netdata.nix
   ];
 
   # Boot configuration
@@ -21,6 +22,9 @@
 
   # Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # System packages
   environment.systemPackages = with pkgs; [
