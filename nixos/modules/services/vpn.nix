@@ -3,6 +3,9 @@
 {
   # Proton VPN WireGuard Configuration
   #
+  # This VPN is ONLY for qbittorrent traffic.
+  # All other services use the regular internet connection.
+  #
   # Setup steps:
   # 1. Get WireGuard config from Proton:
   #    - Log into https://account.protonvpn.com/
@@ -13,27 +16,34 @@
 
   networking.wg-quick.interfaces = {
     protonvpn = {
-      # Enable this interface
       autostart = true;
 
-      # Your WireGuard private key from Proton config
-      # Store this securely! Consider using agenix or sops-nix for secrets
       privateKeyFile = "/root/secrets/protonvpn-private.key";
 
       address = [ "10.2.0.2/32" ];
 
       dns = [ "10.2.0.1" ];
 
+      table = "51820";
+
       peers = [{
         publicKey = "RAy+GOFz+bdG0l/wS+4J2AcpcVyUc2xbR6JR1Q8zJg4=";
 
         endpoint = "149.22.94.1:51820";
 
-        allowedIPs = [ "0.0.0.0/0" "::/0" ];
+        allowedIPs = [ "0.0.0.0/0" ];
 
-        # Keep connection alive
         persistentKeepalive = 25;
       }];
+
+      postUp = ''
+        ${pkgs.iproute2}/bin/ip rule add from 10.2.0.2 table 51820
+        ${pkgs.iproute2}/bin/ip route add default dev protonvpn table 51820
+      '';
+
+      preDown = ''
+        ${pkgs.iproute2}/bin/ip rule del from 10.2.0.2 table 51820 || true
+      '';
     };
   };
 
