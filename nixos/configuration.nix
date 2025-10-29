@@ -10,6 +10,7 @@
     ./modules/services/caddy.nix
     ./modules/services/cockpit.nix
     ./modules/services/flaresolverr.nix
+    ./modules/services/fail2ban.nix
     ./modules/services/home-assistant
   ];
 
