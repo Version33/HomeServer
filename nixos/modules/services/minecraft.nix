@@ -5,7 +5,7 @@
     enable = true;
     eula = true;
     declarative = true;
-    package = pkgs.purpurmc;
+    package = pkgs.purpur;
 
     serverProperties = {
       server-port = 25565;
