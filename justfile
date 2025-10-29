@@ -27,26 +27,6 @@ build-vm:
 
 # Run the VM (builds if necessary)
 run-vm: build-vm
-    @echo "=== Home Server VM ==="
-    @echo ""
-    @echo "Starting VM with port forwarding:"
-    @echo "  - Port 8080  -> HTTP (Caddy)"
-    @echo "  - Port 8443  -> HTTPS (Caddy)"
-    @echo "  - Port 2222  -> SSH (user: admin, pass: test)"
-    @echo ""
-    @echo "Add to /etc/hosts:"
-    @echo "  127.0.0.1 qbittorrent.local radarr.local sonarr.local prowlarr.local jellyfin.local jellyseerr.local"
-    @echo ""
-    @echo "Access services at:"
-    @echo "  - QBitTorrent:  http://qbittorrent.local:8080"
-    @echo "  - Radarr:       http://radarr.local:8080"
-    @echo "  - Sonarr:       http://sonarr.local:8080"
-    @echo "  - Prowlarr:     http://prowlarr.local:8080"
-    @echo "  - Jellyfin:     http://jellyfin.local:8080"
-    @echo "  - Jellyseerr:   http://jellyseerr.local:8080"
-    @echo ""
-    @echo "Press Ctrl+C to stop the VM"
-    @echo ""
     ./result/bin/run-homeserver-vm
 
 # SSH into the running VM
@@ -73,21 +53,3 @@ check:
 # Show status of media services
 status:
     systemctl status radarr sonarr prowlarr jellyfin jellyseerr qbittorrent caddy
-
-# Restart all media services
-restart:
-    sudo systemctl restart radarr sonarr prowlarr jellyfin jellyseerr qbittorrent caddy
-
-# View logs for all media services
-logs:
-    journalctl -u radarr -u sonarr -u prowlarr -u jellyfin -u jellyseerr -u qbittorrent -u caddy -f
-
-# Open all service UIs in browser
-open:
-    @echo "Add to /etc/hosts: 127.0.0.1 qbittorrent.local radarr.local sonarr.local prowlarr.local jellyfin.local jellyseerr.local"
-    xdg-open http://qbittorrent.local
-    xdg-open http://radarr.local
-    xdg-open http://sonarr.local
-    xdg-open http://prowlarr.local
-    xdg-open http://jellyfin.local
-    xdg-open http://jellyseerr.local
