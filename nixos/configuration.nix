@@ -12,6 +12,7 @@
     ./modules/services/flaresolverr.nix
     ./modules/services/fail2ban.nix
     ./modules/services/home-assistant
+    ./modules/services/minecraft.nix
   ];
 
   # Boot configuration
