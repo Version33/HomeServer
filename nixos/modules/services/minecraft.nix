@@ -6,6 +6,7 @@
     eula = true;
     declarative = true;
     package = pkgs.purpur;
+    jvmOpts = "-Xmx2048M -Xms2048M";
 
     serverProperties = {
       server-port = 25565;
