@@ -37,8 +37,7 @@
       }];
 
       postUp = ''
-        ${pkgs.iproute2}/bin/ip rule add from 10.2.0.2 table 51820
-        ${pkgs.iproute2}/bin/ip route add default dev protonvpn table 51820
+        ${pkgs.iproute2}/bin/ip rule add from 10.2.0.2 table 51820 || true
       '';
 
       preDown = ''
