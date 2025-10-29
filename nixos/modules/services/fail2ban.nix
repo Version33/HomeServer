@@ -16,11 +16,9 @@
       maxtime = "168h";
       overalljails = true;
     };
-    jails = {
-      sshd = ''
-        enabled = true
-        port = 22
-      '';
+    jails.sshd.settings = {
+      enabled = true;
+      port = 22;
     };
   };
 }
