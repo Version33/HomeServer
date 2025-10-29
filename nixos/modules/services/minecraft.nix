@@ -32,4 +32,3 @@
     mc-logs = "journalctl -u minecraft-server -f";
   };
 }
-}
