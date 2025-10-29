@@ -22,12 +22,6 @@
           reverse_proxy http://localhost:8123
         '';
       };
-
-      "mc.versionthirtythr.ee" = {
-        extraConfig = ''
-          reverse_proxy localhost:25565
-        '';
-      };
     };
   };
 
