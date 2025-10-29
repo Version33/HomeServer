@@ -60,6 +60,9 @@
 
     # Database tools
     sqlite
+
+    # Minecraft tools
+    mcrcon
   ];
 
   # Neovim configuration
