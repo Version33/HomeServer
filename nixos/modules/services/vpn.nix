@@ -14,7 +14,7 @@
   networking.wg-quick.interfaces = {
     protonvpn = {
       # Enable this interface
-      autostart = false;
+      autostart = true;
 
       # Your WireGuard private key from Proton config
       # Store this securely! Consider using agenix or sops-nix for secrets
