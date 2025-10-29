@@ -6,7 +6,25 @@
     eula = true;
     declarative = true;
 
-    package = pkgs.purpur;
+    package = let
+      fixedPurpur = pkgs.purpur.overrideAttrs (oldAttrs: {
+        installPhase = ''
+                    runHook preInstall
+
+                    mkdir -p $out/bin $out/lib/minecraft
+                    cp -v $src $out/lib/minecraft/server.jar
+
+                    cat > $out/bin/minecraft-server <<EOF
+          #!/bin/sh
+          exec ${pkgs.jdk}/bin/java "\$@" -jar $out/lib/minecraft/server.jar nogui
+          EOF
+
+                    chmod +x $out/bin/minecraft-server
+
+                    runHook postInstall
+        '';
+      });
+    in fixedPurpur;
 
     serverProperties = {
       server-port = 25565;
@@ -20,11 +38,8 @@
       "rcon.password" = "changeme";
     };
 
-    dataDir = "/var/lib/minecraft";
+    openFirewall = true;
   };
 
-  networking.firewall = {
-    allowedTCPPorts = [ 25565 ];
-    interfaces."enp0s31f6".allowedTCPPorts = [ 25575 ];
-  };
+  networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [ 25575 ];
 }
