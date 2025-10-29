@@ -1,27 +1,15 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [
-    ./hacs.nix
-    ./bambu-lab.nix
-    ./zwave-js.nix
-    ./wyoming.nix
-  ];
+  imports = [ ./hacs.nix ./bambu-lab.nix ./zwave-js.nix ./wyoming.nix ];
 
   services.home-assistant = {
     enable = true;
     openFirewall = true;
-    extraComponents = [
-      "esphome"
-      "met"
-      "radio_browser"
-      "zwave_js"
-      "wyoming"
-      "zha"
-      "lg_thinq"
-    ];
+    extraComponents =
+      [ "esphome" "met" "radio_browser" "zwave_js" "wyoming" "zha" "lg_thinq" ];
     config = {
-      default_config = {};
+      default_config = { };
       automation = "!include automations.yaml";
       http = {
         server_host = "0.0.0.0";

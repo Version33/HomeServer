@@ -9,6 +9,7 @@
     ./modules/services/vpn.nix
     ./modules/services/caddy.nix
     ./modules/services/cockpit.nix
+    ./modules/services/flaresolverr.nix
     ./modules/services/home-assistant
   ];
 
@@ -22,10 +23,10 @@
   # System hostname
   networking.hostName = "homeserver";
 
-  fileSystems."/mnt/bigdisk" =
-    { device = "/dev/disk/by-uuid/c0957a15-b3f4-4b06-9f3a-cc26619518f3";
-      fsType = "ext4";
-    };
+  fileSystems."/mnt/bigdisk" = {
+    device = "/dev/disk/by-uuid/c0957a15-b3f4-4b06-9f3a-cc26619518f3";
+    fsType = "ext4";
+  };
 
   # Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

@@ -18,9 +18,7 @@
     # };
 
     # Jellyfin - Media Server
-    jellyfin = {
-      enable = true;
-    };
+    jellyfin = { enable = true; };
 
     # Radarr - Movie management
     radarr = { enable = true; };

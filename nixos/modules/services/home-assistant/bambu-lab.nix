@@ -16,7 +16,4 @@ let
       paho-mqtt
     ];
   };
-in
-{
-  services.home-assistant.customComponents = [ bambuLab ];
-}
+in { services.home-assistant.customComponents = [ bambuLab ]; }

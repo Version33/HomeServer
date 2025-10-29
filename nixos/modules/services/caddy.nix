@@ -26,10 +26,7 @@
   };
 
   networking.firewall = {
-    allowedTCPPorts = [
-      80
-      443
-    ];
+    allowedTCPPorts = [ 80 443 ];
 
     interfaces = {
       "enp0s31f6".allowedTCPPorts = [
@@ -40,6 +37,7 @@
         8989 # Sonarr
         9696 # Prowlarr
         8080 # qBittorrent
+        8191 # FlareSolverr
         9090 # Cockpit
       ];
     };
