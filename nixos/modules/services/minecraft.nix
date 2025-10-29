@@ -6,25 +6,7 @@
     eula = true;
     declarative = true;
 
-    package = let
-      fixedPurpur = pkgs.purpur.overrideAttrs (oldAttrs: {
-        installPhase = ''
-                    runHook preInstall
-
-                    mkdir -p $out/bin $out/lib/minecraft
-                    cp -v $src $out/lib/minecraft/server.jar
-
-                    cat > $out/bin/minecraft-server <<EOF
-          #!/bin/sh
-          exec ${pkgs.jdk}/bin/java "\$@" -jar $out/lib/minecraft/server.jar nogui
-          EOF
-
-                    chmod +x $out/bin/minecraft-server
-
-                    runHook postInstall
-        '';
-      });
-    in fixedPurpur;
+    package = pkgs.papermc;
 
     serverProperties = {
       server-port = 25565;
