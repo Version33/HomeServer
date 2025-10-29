@@ -19,7 +19,10 @@
 
       "hass.versionthirtythr.ee" = {
         extraConfig = ''
-          reverse_proxy http://localhost:8123
+          reverse_proxy http://localhost:8123 {
+            header_up X-Forwarded-Proto {scheme}
+            header_up X-Forwarded-Host {host}
+          }
         '';
       };
     };
