@@ -32,7 +32,7 @@
     ];
 
     interfaces = {
-      "enp+".allowedTCPPorts = [
+      "enp0s31f6".allowedTCPPorts = [
         8096 # Jellyfin
         5055 # Jellyseerr
         8123 # Home Assistant
