@@ -26,10 +26,4 @@
     allowedTCPPorts = [ 25565 ];
     interfaces."enp0s31f6".allowedTCPPorts = [ 25575 ];
   };
-
-  environment.shellAliases = {
-    mc-console = "mcrcon -H localhost -P 25575 -p changeme";
-    mc-cmd = "mcrcon -H localhost -P 25575 -p changeme";
-    mc-logs = "journalctl -u minecraft-server -f";
-  };
 }
