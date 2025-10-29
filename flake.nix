@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-jellyfin-10-10.url = "github:NixOS/nixpkgs/e6f23dc08d3624daab7094b701aa3954923c6bbb";
     nixarr.url = "github:rasmus-kirk/nixarr";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,7 +10,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-jellyfin-10-10, nixarr, home-manager }:
+  outputs = { self, nixpkgs, nixarr, home-manager }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -22,9 +21,6 @@
         # To deploy: sudo nixos-rebuild switch --flake .#homeserver
         homeserver = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            pkgs-jellyfin-10-10 = nixpkgs-jellyfin-10-10.legacyPackages.x86_64-linux;
-          };
           modules = [
             nixarr.nixosModules.default
             home-manager.nixosModules.home-manager
