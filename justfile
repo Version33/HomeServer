@@ -10,8 +10,8 @@ build:
 
 # Deploy to the server
 deploy:
-    @echo "Deploying to home server..."
-    sudo nixos-rebuild switch --flake .#homeserver
+    @echo "Deploying to home server...";
+    ssh -t homeserver "cd ~/Git/homeserver; git pull; sudo nixos-rebuild switch --flake ~/Git/homeserver"
 
 # Test the configuration without deploying
 test:
