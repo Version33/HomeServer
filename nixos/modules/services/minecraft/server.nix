@@ -29,6 +29,7 @@ in {
       enable-rcon = true;
       "rcon.port" = 25575;
       "rcon.password" = "changeme";
+      allow-symbolic-links = true;
     };
 
     openFirewall = true;
