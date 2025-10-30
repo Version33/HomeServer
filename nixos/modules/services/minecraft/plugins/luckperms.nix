@@ -22,13 +22,15 @@ let
     name: default
     displayname: everyone
     permissions:
+    - tabtps.defaultdisplay:
+        value: true
     - tabtps.toggle.tab:
         value: true
     - tabtps.toggle.actionbar:
         value: true
     - tabtps.toggle.bossbar:
         value: true
-    - tabtps.defaultdisplay:
+    - tabtps.tps:
         value: true
   '';
 in {
