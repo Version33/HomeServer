@@ -6,12 +6,15 @@
     extraConfig = ''
       $env.config.show_banner = false
       
-      def mc-cmd [...args: string] {
-        mcrcon -H localhost -P 25575 -p changeme ($args | str join ' ')
+      def mc [...args: string] {
+        if ($args | is-empty) {
+          mcrcon -H localhost -P 25575 -p changeme
+        } else {
+          mcrcon -H localhost -P 25575 -p changeme ($args | str join ' ')
+        }
       }
     '';
     shellAliases = {
-      mc-console = "mcrcon -H localhost -P 25575 -p changeme";
       mc-logs = "journalctl -u minecraft-server -f";
     };
   };
