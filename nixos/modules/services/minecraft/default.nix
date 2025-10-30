@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./server.nix ./tools.nix ./plugins ./purpurpacks.nix ];
+  imports = [ ./server.nix ./tools.nix ./plugins ./datapacks ];
 }
