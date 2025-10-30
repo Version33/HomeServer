@@ -48,10 +48,15 @@ This is a NixOS home server configuration managing various services including me
   - wyoming.nix: Voice assistant protocol support
 
 #### Gaming
-- **minecraft/**: Minecraft server (25565) using PaperMC
-  - server.nix: Server configuration with 4GB RAM, RCON enabled (25575)
-  - tools.nix: Server management tools
-  - plugins/: Plugin management modules
+- **minecraft/**: Minecraft server (25565) using Purpur (PaperMC fork)
+  - default.nix: Main entry point, imports all minecraft submodules (server, tools, plugins, datapacks)
+  - server.nix: Server configuration with 4GB RAM, Purpur 1.21.10, RCON enabled (25575), paper.disableWorldSymlinkValidation for Nix store symlinks
+  - tools.nix: Server management tools (mcrcon, mc-title script for sending formatted titles with color/style options)
+  - plugins/default.nix: Imports all plugin modules
+    - tabtps.nix: TabTPS v1.3.29 (TPS/MSPT display in tab menu)
+    - backuper.nix: Backuper v3.4.5 (automated backup plugin)
+    - purpur-extras.nix: PurpurExtras v1.36.0 (additional Purpur features)
+  - datapacks/default.nix: Symlink configuration for datapacks via allowed_symlinks.txt (allows /nix/store paths)
 
 #### System Management
 - **cockpit.nix**: Web-based system administration (9090), allows unencrypted connections from local network
