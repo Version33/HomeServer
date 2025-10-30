@@ -46,16 +46,6 @@
           curl
           jq
         ];
-
-        shellHook = ''
-          echo "🏠 Home Server Development Environment"
-          echo ""
-          echo "Available commands:"
-          echo "  just --list    # Show all available commands"
-          echo "  just build     # Build the configuration"
-          echo "  just deploy    # Deploy to the server"
-          echo ""
-        '';
       };
     };
 }
