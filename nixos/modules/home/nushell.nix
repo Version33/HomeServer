@@ -14,7 +14,10 @@
         }
       }
     '';
-    shellAliases = { mc-logs = "journalctl -u minecraft-server -f"; };
+    shellAliases = {
+      mc-logs = "journalctl -u minecraft-server -f";
+      mc-restart = "sudo systemctl restart minecraft-server";
+    };
   };
 
   programs.starship = {
