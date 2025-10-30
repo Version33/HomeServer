@@ -8,6 +8,8 @@
 
     package = pkgs.papermc;
 
+    jvmOpts = "-Xmx4G -Xms4G";
+
     serverProperties = {
       server-port = 25565;
       gamemode = "survival";
