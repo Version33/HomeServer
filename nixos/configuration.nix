@@ -12,7 +12,7 @@
     ./modules/services/flaresolverr.nix
     ./modules/services/fail2ban.nix
     ./modules/services/home-assistant
-    ./modules/services/minecraft.nix
+    ./modules/services/minecraft
   ];
 
   # Boot configuration
@@ -60,9 +60,6 @@
 
     # Database tools
     sqlite
-
-    # Minecraft tools
-    mcrcon
   ];
 
   # Neovim configuration
