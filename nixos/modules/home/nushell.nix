@@ -5,7 +5,7 @@
     enable = true;
     extraConfig = ''
       $env.config.show_banner = false
-      
+
       def mc [...args: string] {
         if ($args | is-empty) {
           mcrcon -H localhost -P 25575 -p changeme
@@ -14,9 +14,7 @@
         }
       }
     '';
-    shellAliases = {
-      mc-logs = "journalctl -u minecraft-server -f";
-    };
+    shellAliases = { mc-logs = "journalctl -u minecraft-server -f"; };
   };
 
   programs.starship = {

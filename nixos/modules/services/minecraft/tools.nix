@@ -82,7 +82,7 @@
 
       TITLE_JSON=$(build_json "$TITLE")
       mcrcon -H localhost -P 25575 -p changeme "title $PLAYER title $TITLE_JSON"
-      
+
       if [ -n "$SUBTITLE" ]; then
         SUBTITLE_JSON=$(build_json "$SUBTITLE")
         mcrcon -H localhost -P 25575 -p changeme "title $PLAYER subtitle $SUBTITLE_JSON"
