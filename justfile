@@ -13,14 +13,6 @@ deploy:
     @echo "Deploying to home server...";
     ssh -t homeserver "cd ~/Git/homeserver; git pull; sudo nixos-rebuild switch --flake ~/Git/homeserver"
 
-# Test the configuration without deploying
-test:
-    nixos-rebuild test --flake .#homeserver
-
-# Build and switch in dry-run mode
-dry-run:
-    nixos-rebuild dry-build --flake .#homeserver
-
 # Clean build artifacts
 clean:
     rm -rf result
@@ -38,6 +30,3 @@ format:
 check:
     nix flake check
 
-# Show status of media services
-status:
-    systemctl status radarr sonarr prowlarr jellyfin jellyseerr qbittorrent caddy

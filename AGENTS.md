@@ -1,8 +1,64 @@
 # Agent Guidelines for homeserver
 
+## Project Overview
+This is a NixOS home server configuration managing various services including media streaming, home automation, and networking.
+
+### Key Files
+- **flake.nix**: Flake configuration with inputs (nixpkgs, nixarr, home-manager) and outputs (nixosConfigurations, devShells)
+- **nixos/configuration.nix**: Main system configuration - imports all modules, defines boot, users, packages, and system settings
+- **nixos/hardware-configuration.nix**: Auto-generated hardware-specific configuration
+- **nixos/modules/networking.nix**: Network configuration using systemd-networkd and nftables firewall
+- **nixos/modules/services/**: Service modules for applications (nixarr, caddy, home-assistant, minecraft, etc.)
+- **nixos/modules/services/caddy.nix**: Reverse proxy configuration for web services (jellyfin, seerr, hass) and firewall rules for local network access
+- **nixos/modules/home/**: Home Manager configuration for user environment (nushell, etc.)
+- **justfile**: Command runner recipes for common tasks (build, deploy, test, format, check)
+
 ## Build/Test Commands
-- **Test**: `just test` (test configuration without deploying)
+- **Check**: `just check` (check flake)
+- **Build**: `just build` (build configuration)
 - **Format**: `just format` (format Nix files with `nixfmt-classic`)
+
+## Services & Modules
+
+### System Modules
+- **networking.nix**: systemd-networkd configuration, nftables firewall, DHCP on enp* interface, allows SSH (22), HTTP (80), HTTPS (443)
+
+### Service Modules
+
+#### Media Stack (nixarr)
+- **nixarr.nix**: Media management suite with mediaDir at `/mnt/bigdisk/nixarr`
+  - Jellyfin (8096): Media server
+  - Radarr (7878): Movie management
+  - Sonarr (8989): TV show management
+  - Prowlarr (9696): Indexer management
+  - Jellyseerr (5055): Request management
+- **qbittorrent.nix**: Torrent client (8080) running through ProtonVPN, binds to `protonvpn` interface
+- **flaresolverr.nix**: Cloudflare bypass proxy (8191) for indexers
+
+#### Reverse Proxy & Security
+- **caddy.nix**: Reverse proxy with SSL for jellyfin, seerr, and hass subdomains; local network firewall rules for all services
+- **fail2ban.nix**: Intrusion prevention with SSH jail, incremental ban times (1h to 168h), ignores local network (192.168.1.0/24)
+
+#### Home Automation
+- **home-assistant/**: Home automation platform (8123)
+  - default.nix: Core configuration with ESPHome, Z-Wave JS, Wyoming, ZHA, LG ThinQ integrations
+  - hacs.nix: HACS custom component integration
+  - bambu-lab.nix: Bambu Lab 3D printer integration
+  - zwave-js.nix: Z-Wave device support
+  - wyoming.nix: Voice assistant protocol support
+
+#### Gaming
+- **minecraft/**: Minecraft server (25565) using PaperMC
+  - server.nix: Server configuration with 4GB RAM, RCON enabled (25575)
+  - tools.nix: Server management tools
+  - plugins/: Plugin management modules
+
+#### System Management
+- **cockpit.nix**: Web-based system administration (9090), allows unencrypted connections from local network
+- **vpn.nix**: ProtonVPN WireGuard configuration for qBittorrent traffic only, includes `vpn-status` utility script
+
+### Home Manager Modules
+- **home/nushell.nix**: Nushell shell configuration with Minecraft RCON helper (`mc` command) and Starship prompt
 
 ## Code Style
 - **Language**: Nix (NixOS configuration)
