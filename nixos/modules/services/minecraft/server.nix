@@ -6,7 +6,7 @@ let
     version = "1.21.10-2518";
     src = pkgs.fetchurl {
       url = "https://api.purpurmc.org/v2/purpur/1.21.10/2518/download";
-      hash = "sha256-1yjnn8sr2xfyywi2wkanhgjsiaxzlaj21w8wic1frgsx8dw4f4gf";
+      hash = "sha256-7hFHeENdv+wCixzxIKSiv6uo5YNWTS4i9951kTWyVvo=";
     };
   });
 in {
