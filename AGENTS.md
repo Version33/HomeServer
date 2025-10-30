@@ -1,7 +1,7 @@
 # Agent Guidelines for homeserver
 
 ## Project Overview
-This is a NixOS home server configuration managing various services including media streaming, home automation, and networking.
+This is a NixOS home server configuration managing various services including media streaming, home automation, and networking. When changing any config make sure it builds with no errors with `just build`.
 
 ### Key Files
 - **flake.nix**: Flake configuration with inputs (nixpkgs, nixarr, home-manager) and outputs (nixosConfigurations, devShells)
