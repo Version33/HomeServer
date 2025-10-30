@@ -9,33 +9,28 @@ let
 
   luckpermsConfig = pkgs.writeText "config.yml" ''
     server: homeserver
-    storage-method: h2
+    storage-method: yaml
     data:
-      table-prefix: luckperms_
+      pool-settings:
+        maximum-pool-size: 10
+        minimum-idle: 10
+        maximum-lifetime: 1800000
+        connection-timeout: 5000
   '';
 
-  defaultGroupConfig = pkgs.writeText "default.json" (builtins.toJSON {
-    name = "default";
-    displayName = "everyone";
-    permissions = [
-      {
-        permission = "tabtps.toggle.tab";
-        value = true;
-      }
-      {
-        permission = "tabtps.toggle.actionbar";
-        value = true;
-      }
-      {
-        permission = "tabtps.toggle.bossbar";
-        value = true;
-      }
-      {
-        permission = "tabtps.defaultdisplay";
-        value = true;
-      }
-    ];
-  });
+  defaultGroupConfig = pkgs.writeText "default.yml" ''
+    name: default
+    displayname: everyone
+    permissions:
+    - tabtps.toggle.tab:
+        value: true
+    - tabtps.toggle.actionbar:
+        value: true
+    - tabtps.toggle.bossbar:
+        value: true
+    - tabtps.defaultdisplay:
+        value: true
+  '';
 in {
   systemd.tmpfiles.rules = [
     "L+ /var/lib/minecraft/plugins/LuckPerms-Bukkit-5.5.17.jar - - - - ${luckperms}"
@@ -43,6 +38,6 @@ in {
     "L+ /var/lib/minecraft/plugins/LuckPerms/config.yml - - - - ${luckpermsConfig}"
     "d /var/lib/minecraft/plugins/LuckPerms/yaml-storage 0755 minecraft minecraft - -"
     "d /var/lib/minecraft/plugins/LuckPerms/yaml-storage/groups 0755 minecraft minecraft - -"
-    "L+ /var/lib/minecraft/plugins/LuckPerms/yaml-storage/groups/default.json - - - - ${defaultGroupConfig}"
+    "L+ /var/lib/minecraft/plugins/LuckPerms/yaml-storage/groups/default.yml - - - - ${defaultGroupConfig}"
   ];
 }
