@@ -17,7 +17,7 @@ in {
 
     package = purpur;
 
-    jvmOpts = "-Xmx4G -Xms4G -Dpaper.disableWorldSymlinkValidation=true";
+    jvmOpts = "-Xmx4G -Xms4G -Dpaper.disableWorldSymlinkValidation=true -Dpaper.disableResourcePackSymlinkValidation=true";
 
     serverProperties = {
       server-port = 25565;
