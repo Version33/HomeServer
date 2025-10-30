@@ -304,7 +304,12 @@ let
     hash = "sha256-ma1vVkfERj5SJYxTYB6v0iH2JLVEo/1qrnYTomKBZj8=";
   };
 in {
+  environment.etc."minecraft/allowed_symlinks.txt".text = ''
+    /nix/store
+  '';
+
   systemd.tmpfiles.rules = [
+    "L+ /var/lib/minecraft/allowed_symlinks.txt - - - - /etc/minecraft/allowed_symlinks.txt"
     "L+ /var/lib/minecraft/world/datapacks/pickaxe-effective-reinforced-deepslate.jar - - - - ${pickaxeEffectiveReinforcedDeepslate}"
     "L+ /var/lib/minecraft/world/datapacks/silk-touch-budding-amethyst.jar - - - - ${silkTouchBuddingAmethyst}"
     "L+ /var/lib/minecraft/world/datapacks/pickaxe-effective-light-source-blocks.jar - - - - ${pickaxeEffectiveLightSourceBlocks}"
