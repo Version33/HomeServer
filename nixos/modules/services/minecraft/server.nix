@@ -1,12 +1,21 @@
 { config, pkgs, lib, ... }:
 
-{
+let
+  purpur = pkgs.papermc.overrideAttrs (old: rec {
+    pname = "purpur";
+    version = "1.21.10-2518";
+    src = pkgs.fetchurl {
+      url = "https://api.purpurmc.org/v2/purpur/1.21.10/2518/download";
+      hash = "sha256-1yjnn8sr2xfyywi2wkanhgjsiaxzlaj21w8wic1frgsx8dw4f4gf";
+    };
+  });
+in {
   services.minecraft-server = {
     enable = true;
     eula = true;
     declarative = true;
 
-    package = pkgs.papermc;
+    package = purpur;
 
     jvmOpts = "-Xmx4G -Xms4G";
 
