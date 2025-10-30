@@ -118,40 +118,6 @@
   # Require password for sudo
   security.sudo.wheelNeedsPassword = true;
 
-  # VM-specific configuration for testing
-  # This section is only used when building with .vmVariant
-  virtualisation.vmVariant = {
-    virtualisation = {
-      memorySize = 4096;
-      cores = 4;
-      diskSize = 20480; # 20GB
-
-      # Forward ports from host to VM
-      forwardPorts = [
-        {
-          from = "host";
-          host.port = 8080;
-          guest.port = 80;
-        } # Caddy HTTP
-        {
-          from = "host";
-          host.port = 8443;
-          guest.port = 443;
-        } # Caddy HTTPS
-        {
-          from = "host";
-          host.port = 2222;
-          guest.port = 22;
-        } # SSH
-      ];
-    };
-
-    # VM-specific overrides for easier testing
-    users.users.vee.initialPassword = "test"; # Easy password for VM testing
-    security.sudo.wheelNeedsPassword =
-      lib.mkForce false; # No sudo password in VM
-  };
-
   # NixOS version
   system.stateVersion = "25.05";
 }

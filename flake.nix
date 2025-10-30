@@ -29,16 +29,6 @@
         };
       };
 
-      # Packages for VM testing
-      packages.x86_64-linux = {
-        # Build the VM: nix build .#vm
-        # Run with: ./result/bin/run-nixos-vm
-        vm = self.nixosConfigurations.homeserver.config.system.build.vm;
-
-        # Default package
-        default = self.packages.x86_64-linux.vm;
-      };
-
       # Development shell with tools
       devShells.x86_64-linux.default = pkgs.mkShell {
         name = "homeserver-dev";

@@ -21,18 +21,6 @@ test:
 dry-run:
     nixos-rebuild dry-build --flake .#homeserver
 
-# Build the VM for testing
-build-vm:
-    nix build .#vm
-
-# Run the VM (builds if necessary)
-run-vm: build-vm
-    ./result/bin/run-homeserver-vm
-
-# SSH into the running VM
-ssh-vm:
-    ssh -p 2222 admin@localhost
-
 # Clean build artifacts
 clean:
     rm -rf result
