@@ -24,6 +24,8 @@ let
     permissions:
     - tabtps.defaultdisplay:
         value: true
+    - tabtps.tps:
+        value: true
   '';
 in {
   systemd.tmpfiles.rules = [
