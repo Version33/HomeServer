@@ -24,14 +24,6 @@ let
     permissions:
     - tabtps.defaultdisplay:
         value: true
-    - tabtps.toggle.tab:
-        value: true
-    - tabtps.toggle.actionbar:
-        value: true
-    - tabtps.toggle.bossbar:
-        value: true
-    - tabtps.tps:
-        value: true
   '';
 in {
   systemd.tmpfiles.rules = [
