@@ -23,9 +23,11 @@ let
     displayname: everyone
     permissions:
     - tabtps.defaultdisplay:
-        value: true
+      value: true
     - tabtps.tps:
-        value: true
+      value: true
+    - seed:
+      value: true
   '';
 in {
   systemd.tmpfiles.rules = [
