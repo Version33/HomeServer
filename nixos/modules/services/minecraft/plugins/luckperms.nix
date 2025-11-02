@@ -26,7 +26,7 @@ let
       value: true
     - tabtps.tps:
       value: true
-    - minecraft.command.seed:
+    - bukkit.command.seed:
       value: true
   '';
 in {
