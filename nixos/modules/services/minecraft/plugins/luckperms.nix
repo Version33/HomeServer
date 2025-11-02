@@ -26,8 +26,14 @@ let
       value: true
     - tabtps.tps:
       value: true
+    - tabtps.toggle.actionbar:
+        value: true
+    - tabtps.toggle.bossbar:
+        value: true
+    - tabtps.toggle.tab:
+        value: true
     - minecraft.command.seed:
-      value: true
+        value: true
   '';
 in {
   systemd.tmpfiles.rules = [
