@@ -2,6 +2,7 @@
 
 let
   # Lovelace cards (frontend plugins)
+  # Cards with pre-built JS in their GitHub repos
   card-mod = pkgs.fetchFromGitHub {
     owner = "thomasloven";
     repo = "lovelace-card-mod";
@@ -23,27 +24,6 @@ let
     hash = "sha256-9/xdja3bkFOVbVvlQrtAl8kzPZ0jSMh2ur++k1NMqQY=";
   };
 
-  button-card = pkgs.fetchFromGitHub {
-    owner = "custom-cards";
-    repo = "button-card";
-    rev = "cee607b1007ca4511a0b989e698311fc105e3d3e";
-    hash = "sha256-kgoqiFWO6EBWnnapEIsiujKyG47vh32OpRcenztV+TU=";
-  };
-
-  mushroom = pkgs.fetchFromGitHub {
-    owner = "piitaya";
-    repo = "lovelace-mushroom";
-    rev = "c1cb869b25460e1d13e0a0f2ec81593e090d7417";
-    hash = "sha256-qW4I1ajXxCzrhjO8YYI8RH0pMMbD0YXx71eelA/Xvnk=";
-  };
-
-  config-template-card = pkgs.fetchFromGitHub {
-    owner = "iantrich";
-    repo = "config-template-card";
-    rev = "bcbc09b086cd4b9eb8847e73cfe5014668f3f777";
-    hash = "sha256-ieFYorRpyfp6lC7XRvEyzL/2GWqGATi4Djq4h1FWNE4=";
-  };
-
   custom-ui = pkgs.fetchFromGitHub {
     owner = "Mariusthvdb";
     repo = "custom-ui";
@@ -51,12 +31,47 @@ let
     hash = "sha256-Lo5BaY/lUcNdw1N74mtEHYCxhQfwCFWzw4rZaybi7Mc=";
   };
 
-  tabbed-card = pkgs.fetchFromGitHub {
-    owner = "kinghat";
-    repo = "tabbed-card";
-    rev = "41ce3d7ee4443b4d1d88d941ebd4cdc66f8375d5";
-    hash = "sha256-bXlOLMiQOfVLSZcR6v9VZvzirlQStBilJh7SHNvdfhY=";
-  };
+  # Cards with pre-built JS files as release assets
+  # Download the JS file and create a directory structure
+  mushroom = pkgs.runCommand "mushroom" {
+    js = pkgs.fetchurl {
+      url = "https://github.com/piitaya/lovelace-mushroom/releases/download/v5.0.8/mushroom.js";
+      hash = "sha256-Amnr9UlsYlZ5i41yfXd8XwnEtnLJCxi2/mZ3xfJPCHk=";
+    };
+  } ''
+    mkdir -p $out
+    cp $js $out/mushroom.js
+  '';
+
+  button-card = pkgs.runCommand "button-card" {
+    js = pkgs.fetchurl {
+      url = "https://github.com/custom-cards/button-card/releases/download/v4.1.2/button-card.js";
+      hash = "sha256-HZ/meltJqJt5CZKaQf84tEZOwSRvEFOiawJ/FdZWfLo=";
+    };
+  } ''
+    mkdir -p $out
+    cp $js $out/button-card.js
+  '';
+
+  tabbed-card = pkgs.runCommand "tabbed-card" {
+    js = pkgs.fetchurl {
+      url = "https://github.com/kinghat/tabbed-card/releases/download/v0.3.3/tabbed-card.js";
+      hash = "sha256-bq1fmXdAtrTxYtJoMqSypvvLwFB7jpRw8PaiUa6OkBo=";
+    };
+  } ''
+    mkdir -p $out
+    cp $js $out/tabbed-card.js
+  '';
+
+  config-template-card = pkgs.runCommand "config-template-card" {
+    js = pkgs.fetchurl {
+      url = "https://github.com/iantrich/config-template-card/releases/download/1.3.6/config-template-card.js";
+      hash = "sha256-7O48fgoQkg6aQy3i5/H5UGrnQkJelXQdGDW71N6lbC4=";
+    };
+  } ''
+    mkdir -p $out
+    cp $js $out/config-template-card.js
+  '';
 
   # FontAwesome integration (custom component, not a lovelace card)
   fontawesome = pkgs.buildHomeAssistantComponent rec {
@@ -81,11 +96,11 @@ in {
     "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-card-mod - - - - ${card-mod}"
     "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-layout-card - - - - ${lovelace-layout-card}"
     "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-hui-element - - - - ${hui-element}"
-    "L+ ${config.services.home-assistant.configDir}/www/community/button-card - - - - ${button-card}"
-    "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-mushroom - - - - ${mushroom}"
-    "L+ ${config.services.home-assistant.configDir}/www/community/config-template-card - - - - ${config-template-card}"
     "L+ ${config.services.home-assistant.configDir}/www/community/custom-ui - - - - ${custom-ui}"
+    "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-mushroom - - - - ${mushroom}"
+    "L+ ${config.services.home-assistant.configDir}/www/community/button-card - - - - ${button-card}"
     "L+ ${config.services.home-assistant.configDir}/www/community/tabbed-card - - - - ${tabbed-card}"
+    "L+ ${config.services.home-assistant.configDir}/www/community/config-template-card - - - - ${config-template-card}"
   ];
 
   # FontAwesome is a custom component, not a lovelace card
