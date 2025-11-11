@@ -1,7 +1,13 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./hacs.nix ./bambu-lab.nix ./zwave-js.nix ./wyoming.nix ];
+  imports = [
+    ./hacs.nix
+    ./bambu-lab.nix
+    ./zwave-js.nix
+    ./wyoming.nix
+    ./lovelace-cards.nix
+  ];
 
   services.home-assistant = {
     enable = true;
