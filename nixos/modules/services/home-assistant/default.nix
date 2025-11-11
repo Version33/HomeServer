@@ -4,6 +4,7 @@
   imports = [
     ./hacs.nix
     ./bambu-lab.nix
+    ./bambu-lab-media.nix
     ./zwave-js.nix
     ./wyoming.nix
     ./lovelace-cards.nix
