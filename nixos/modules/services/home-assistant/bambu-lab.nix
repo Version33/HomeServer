@@ -5,11 +5,11 @@ let
     owner = "greghesp";
     domain = "bambu_lab";
     version = "2.2.11";
-    src = pkgs.fetchFromGitHub {
-      owner = "greghesp";
-      repo = "ha-bambulab";
-      rev = "v${version}";
-      hash = "sha256-Ypj9TdeRq6hzpIoQwhZtELsyuK+Ib4zMCxO3vWjDm3g=";
+    src = pkgs.fetchzip {
+      url =
+        "https://github.com/greghesp/ha-bambulab/releases/download/v${version}/bambu_lab.zip";
+      hash = "sha256-JekWaRN8M0I/mE6WkAUm1hqxKWzipSG7boqmILN/3XQ=";
+      stripRoot = false;
     };
     dependencies = with pkgs.home-assistant.python.pkgs; [
       beautifulsoup4
