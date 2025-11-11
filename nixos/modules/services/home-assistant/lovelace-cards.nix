@@ -73,8 +73,10 @@ let
 
 in {
   # Create www/community directory with correct ownership
+  # Use Z flag to recursively fix ownership and permissions
   systemd.tmpfiles.rules = [
     "d ${config.services.home-assistant.configDir}/www 0755 hass hass -"
+    "Z ${config.services.home-assistant.configDir}/www 0755 hass hass -"
     "d ${config.services.home-assistant.configDir}/www/community 0755 hass hass -"
     "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-card-mod - - - - ${card-mod}"
     "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-layout-card - - - - ${lovelace-layout-card}"
