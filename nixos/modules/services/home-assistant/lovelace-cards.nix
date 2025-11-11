@@ -72,8 +72,10 @@ let
   };
 
 in {
-  # Install Lovelace cards to www/community directory
+  # Create www/community directory with correct ownership
   systemd.tmpfiles.rules = [
+    "d ${config.services.home-assistant.configDir}/www 0755 hass hass -"
+    "d ${config.services.home-assistant.configDir}/www/community 0755 hass hass -"
     "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-card-mod - - - - ${card-mod}"
     "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-layout-card - - - - ${lovelace-layout-card}"
     "L+ ${config.services.home-assistant.configDir}/www/community/lovelace-hui-element - - - - ${hui-element}"
