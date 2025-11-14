@@ -47,4 +47,16 @@
     #   # Bazarr runs on port 6767 by default
     # };
   };
+
+  # Fix permissions for Sonarr/Radarr to write to library directories
+  systemd.services.sonarr.serviceConfig.UMask = "0002";
+  systemd.services.radarr.serviceConfig.UMask = "0002";
+
+  # Fix existing directory permissions to use media group
+  systemd.tmpfiles.rules = [
+    "d /mnt/bigdisk/nixarr 2775 root media - -"
+    "Z /mnt/bigdisk/nixarr 2775 root media - -"
+    "d /mnt/bigdisk/qbittorrent 2775 root media - -"
+    "Z /mnt/bigdisk/qbittorrent 2775 root media - -"
+  ];
 }
