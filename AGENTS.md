@@ -3,6 +3,8 @@
 ## Project Overview
 This is a NixOS home server configuration managing various services including media streaming, home automation, and networking. When changing any config make sure it builds with no errors with `just build`.
 
+The server is running on `ssh homeserver`. You may run any kind of view commands to inspect logs and the like. Ask before attempting to change anything on the server. You do not have sudo permissions on the server. The server uses nushell as its default shell. If you need sudo to view something, ask me to run the command.
+
 ### Key Files
 - **flake.nix**: Flake configuration with inputs (nixpkgs, nixarr, home-manager) and outputs (nixosConfigurations, devShells)
 - **nixos/configuration.nix**: Main system configuration - imports all modules, defines boot, users, packages, and system settings

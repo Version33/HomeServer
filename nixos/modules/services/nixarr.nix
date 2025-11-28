@@ -52,6 +52,9 @@
   systemd.services.sonarr.serviceConfig.UMask = "0002";
   systemd.services.radarr.serviceConfig.UMask = "0002";
 
+  # Add jellyfin user to video group for hardware acceleration
+  systemd.services.jellyfin.serviceConfig.SupplementaryGroups = [ "video" ];
+
   # Fix existing directory permissions to use media group
   systemd.tmpfiles.rules = [
     "d /mnt/bigdisk/nixarr 2775 root media - -"
