@@ -11,7 +11,7 @@ let
   });
 in {
   services.minecraft-server = {
-    enable = true;
+    enable = false;
     eula = true;
     declarative = true;
 

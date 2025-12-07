@@ -43,6 +43,7 @@
     curl
 
     # Modern CLI tools
+    kitty # xterm-kitty terminfo
     ripgrep # Fast grep
     fd # Fast find
     bat # Cat with syntax highlighting
