@@ -61,6 +61,9 @@
 
     # Database tools
     sqlite
+
+    # Media
+    mpv
   ];
 
   # Neovim configuration
