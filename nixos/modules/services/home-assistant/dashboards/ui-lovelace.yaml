@@ -1,0 +1,6 @@
+views:
+  - title: Home
+    cards:
+      - type: custom:mushroom-title-card
+        title: Hello, NixOS!
+        subtitle: Managed via Nix

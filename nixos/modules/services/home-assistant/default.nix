@@ -24,8 +24,35 @@
         trusted_proxies = [ "127.0.0.1" ];
         use_x_forwarded_for = true;
       };
+
+      lovelace = {
+        mode = "yaml";
+        resources = [
+          { url = "/local/community/lovelace-card-mod/card-mod.js"; type = "module"; }
+          { url = "/local/community/lovelace-layout-card/layout-card.js"; type = "module"; }
+          { url = "/local/community/lovelace-hui-element/hui-element.js"; type = "module"; }
+          { url = "/local/community/custom-ui/custom-ui.js"; type = "module"; }
+          { url = "/local/community/lovelace-mushroom/mushroom.js"; type = "module"; }
+          { url = "/local/community/button-card/button-card.js"; type = "module"; }
+          { url = "/local/community/tabbed-card/tabbed-card.js"; type = "module"; }
+          { url = "/local/community/config-template-card/config-template-card.js"; type = "module"; }
+        ];
+        dashboards = {
+          "main-dashboard" = {
+            mode = "yaml";
+            title = "Home";
+            icon = "mdi:home";
+            show_in_sidebar = true;
+            filename = "ui-lovelace.yaml";
+          };
+        };
+      };
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "L+ ${config.services.home-assistant.configDir}/ui-lovelace.yaml - - - - ${./dashboards/ui-lovelace.yaml}"
+  ];
 
   users.users.hass = lib.mkIf config.services.home-assistant.enable {
     extraGroups = [ "dialout" ];

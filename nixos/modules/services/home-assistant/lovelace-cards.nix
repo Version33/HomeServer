@@ -45,8 +45,8 @@ let
 
   button-card = pkgs.runCommand "button-card" {
     js = pkgs.fetchurl {
-      url = "https://github.com/custom-cards/button-card/releases/download/v4.1.2/button-card.js";
-      hash = "sha256-HZ/meltJqJt5CZKaQf84tEZOwSRvEFOiawJ/FdZWfLo=";
+      url = "https://github.com/custom-cards/button-card/releases/download/v7.0.1/button-card.js";
+      hash = "sha256-XW6cavygHoAUZT+la7XWqpJI2DLDT7lEp/LDYym8ItE=";
     };
   } ''
     mkdir -p $out
