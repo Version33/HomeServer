@@ -1,7 +1,7 @@
 type: sections
 max_columns: 4
 title: H2D
-path: h2d
+path: h2d-dashboard
 icon: ""
 layout: {}
 sections:
