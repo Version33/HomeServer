@@ -38,13 +38,6 @@
           { url = "/local/community/config-template-card/config-template-card.js"; type = "module"; }
         ];
         dashboards = {
-          "main-dashboard" = {
-            mode = "yaml";
-            title = "Home";
-            icon = "mdi:home";
-            show_in_sidebar = true;
-            filename = "ui-lovelace.yaml";
-          };
           "h2d-dashboard" = {
             mode = "yaml";
             title = "H2D";
