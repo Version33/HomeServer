@@ -4,11 +4,11 @@ let
   bambuLab = pkgs.buildHomeAssistantComponent rec {
     owner = "greghesp";
     domain = "bambu_lab";
-    version = "2.2.11";
+    version = "2.2.17";
     src = pkgs.fetchzip {
       url =
         "https://github.com/greghesp/ha-bambulab/releases/download/v${version}/bambu_lab.zip";
-      hash = "sha256-JekWaRN8M0I/mE6WkAUm1hqxKWzipSG7boqmILN/3XQ=";
+      hash = "sha256-1HuKvnwVf7IcrfhlSGjRe2DhafxnCzf5P2caoSnHr7w=";
       stripRoot = false;
     };
     dependencies = with pkgs.home-assistant.python.pkgs; [
