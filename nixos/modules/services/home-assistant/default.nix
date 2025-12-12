@@ -45,6 +45,13 @@
             show_in_sidebar = true;
             filename = "ui-lovelace.yaml";
           };
+          "h2d" = {
+            mode = "yaml";
+            title = "H2D";
+            icon = "mdi:printer-3d";
+            show_in_sidebar = true;
+            filename = "h2d.yaml";
+          };
         };
       };
     };
@@ -52,6 +59,7 @@
 
   systemd.tmpfiles.rules = [
     "L+ ${config.services.home-assistant.configDir}/ui-lovelace.yaml - - - - ${./dashboards/ui-lovelace.yaml}"
+    "L+ ${config.services.home-assistant.configDir}/h2d.yaml - - - - ${./dashboards/h2d.yaml}"
   ];
 
   users.users.hass = lib.mkIf config.services.home-assistant.enable {
