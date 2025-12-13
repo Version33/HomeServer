@@ -64,6 +64,8 @@
 
     # Media
     mpv
+    yt-dlp
+    ffmpeg
   ];
 
   # Neovim configuration
