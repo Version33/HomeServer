@@ -38,7 +38,7 @@
           just
 
           # Nix tools
-          nixfmt-classic
+          nixfmt
           nil # Nix language server
 
           # Utilities
