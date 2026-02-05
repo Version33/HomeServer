@@ -1,51 +1,17 @@
+# DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
+# Use `nix run .#write-flake` to regenerate it.
 {
-  description = "NixOS Home Server with native service integration";
+
+  outputs = inputs: import ./. inputs;
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-file.url = "github:vic/flake-file";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    home-manager.url = "github:nix-community/home-manager";
+    import-tree.url = "github:vic/import-tree";
     nixarr.url = "github:rasmus-kirk/nixarr";
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
-  outputs = { self, nixpkgs, nixarr, home-manager }:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      # NixOS configuration
-      nixosConfigurations = {
-        # Main server configuration
-        # To deploy: sudo nixos-rebuild switch --flake .#homeserver
-        homeserver = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            nixarr.nixosModules.default
-            home-manager.nixosModules.home-manager
-            ./nixos/configuration.nix
-          ];
-        };
-      };
-
-      # Development shell with tools
-      devShells.x86_64-linux.default = pkgs.mkShell {
-        name = "homeserver-dev";
-
-        buildInputs = with pkgs; [
-          # Command runner
-          just
-
-          # Nix tools
-          nixfmt
-          nil # Nix language server
-
-          # Utilities
-          git
-          curl
-          jq
-        ];
-      };
-    };
 }

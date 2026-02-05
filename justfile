@@ -23,8 +23,7 @@ update:
 
 # Format Nix files
 format:
-    find nixos -name "*.nix" -exec nixfmt {} \;
-    nixfmt flake.nix
+    nix fmt
 
 # Check flake for issues
 check:
