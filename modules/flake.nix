@@ -61,7 +61,7 @@
     treefmt = {
       projectRootFile = "flake.nix";
       programs.nixfmt.enable = true;
-      programs.nixfmt.package = pkgs.nixfmt-classic;
+      programs.nixfmt.package = pkgs.nixfmt;
     };
 
     # Development Shell
@@ -69,7 +69,7 @@
       packages = with pkgs; [
         # Nix development tools
         nil # Nix language server
-        nixfmt-classic # Nix formatter
+        nixfmt # Nix formatter
         statix # Lints and suggestions for Nix code
         deadnix # Find and remove unused code
         nix-tree # Visualize dependency tree
