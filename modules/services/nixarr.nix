@@ -62,6 +62,30 @@
       "d /mnt/bigdisk/qbittorrent 2775 root media - -"
       "Z /mnt/bigdisk/qbittorrent 2775 root media - -"
     ];
+
+    # Caddy reverse proxy configuration
+    services.caddy.virtualHosts = {
+      "jellyfin.versionthirtythr.ee" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:8096
+        '';
+      };
+
+      "seerr.versionthirtythr.ee" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:5055
+        '';
+      };
+    };
+
+    # Firewall configuration for local network access
+    networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [
+      8096 # Jellyfin
+      5055 # Jellyseerr
+      7878 # Radarr
+      8989 # Sonarr
+      9696 # Prowlarr
+    ];
   };
 
 }

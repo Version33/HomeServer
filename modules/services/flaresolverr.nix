@@ -27,6 +27,11 @@
       home = "/var/lib/flaresolverr";
       createHome = true;
     };
+
+    # Firewall configuration for local network access
+    networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [
+      8191 # FlareSolverr
+    ];
   };
 
 }

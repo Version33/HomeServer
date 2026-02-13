@@ -28,6 +28,11 @@
         BindToDevice = "protonvpn";
       };
     };
+
+    # Firewall configuration for local network access
+    networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [
+      8080 # qBittorrent Web UI
+    ];
   };
 
 }

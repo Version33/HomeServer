@@ -12,6 +12,11 @@
         };
       };
     };
+
+    # Firewall configuration for local network access
+    networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [
+      9090 # Cockpit Web UI
+    ];
   };
 
 }

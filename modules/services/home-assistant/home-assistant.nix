@@ -85,6 +85,15 @@
     users.users.hass = lib.mkIf config.services.home-assistant.enable {
       extraGroups = [ "dialout" ];
     };
+
+    # Caddy reverse proxy configuration
+    services.caddy.virtualHosts = {
+      "hass.versionthirtythr.ee" = {
+        extraConfig = ''
+          reverse_proxy http://localhost:8123
+        '';
+      };
+    };
   };
 
 }
