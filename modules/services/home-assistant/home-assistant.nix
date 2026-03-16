@@ -5,9 +5,15 @@
       enable = true;
       openFirewall = true;
       extraComponents = [
-        "met"        # Default weather provider, HA recommends keeping this
-        "esphome"    # Keep if you have ESPHome devices
-        "zwave_js"   # Keep since your zwave-js-server module is still active
+        "met"
+        "esphome"
+        "zwave_js"
+	"isal"
+	"radio_browser"
+	"zha"
+	"sun"
+	"mobile_app"
+	"bluetooth"
       ];
       config = {
         default_config = { };
