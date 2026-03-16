@@ -49,8 +49,9 @@
     };
 
     # Fix permissions for Sonarr/Radarr to write to library directories
-    systemd.services.sonarr.serviceConfig.UMask = "0002";
-    systemd.services.radarr.serviceConfig.UMask = "0002";
+    # systemd.services.sonarr.serviceConfig.UMask = "0002";
+    
+    # systemd.services.radarr.serviceConfig.UMask = "0002";
 
     # Add jellyfin user to video group for hardware acceleration
     systemd.services.jellyfin.serviceConfig.SupplementaryGroups = [ "video" ];

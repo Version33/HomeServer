@@ -31,6 +31,9 @@
       mpv
       yt-dlp
       ffmpeg
+
+      # AI
+      opencode
     ];
 
     # Shell aliases

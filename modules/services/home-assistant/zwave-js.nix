@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.zwave-js = { pkgs, ... }: {
     systemd.services.zwave-js-server = {
@@ -21,8 +21,6 @@
       isSystemUser = true;
       group = "dialout";
     };
-
-    networking.firewall.allowedTCPPorts = [ 3000 ];
   };
 
 }
