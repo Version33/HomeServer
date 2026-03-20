@@ -1,6 +1,7 @@
+{ ... }:
 {
 
-  flake.modules.nixos.matrix-conduit = {
+  flake.modules.nixos.matrix-conduit = _: {
     services.matrix-conduit = {
       enable = true;
 
@@ -10,71 +11,33 @@
 
       settings.global = {
         server_name = "versionthirtythr.ee";
-
-        # Bind only to localhost; Caddy handles TLS termination
         address = "127.0.0.1";
         port = 6167;
-
-        # RocksDB is the recommended backend; no external database required
         database_backend = "rocksdb";
-
-        # Max upload size (50 MiB in bytes)
-        max_request_size = 52428800;
-
         allow_registration = true;
-
-        allow_federation = true;
-        allow_encryption = true;
-        allow_room_creation = true;
-
         trusted_servers = [ "matrix.org" ];
-
-        # Disable the ⚡️ suffix added to display names on registration
-        enable_lightning_bolt = false;
-
-        # Conduit serves /.well-known/matrix/* delegation responses itself.
-        # Caddy must proxy those paths to Conduit (see virtualHosts below).
-        well_known = {
-          client = "https://matrix.versionthirtythr.ee";
-          server = "matrix.versionthirtythr.ee:443";
-        };
+        max_request_size = 52428800; # 50 MB in bytes
       };
     };
 
-    # /var/lib/matrix-conduit is a bind mount from /mnt/bigdisk/matrix-db.
-    # DynamicUser=true causes systemd to re-bind the StateDirectory into a
-    # private namespace, which fails with "Device or resource busy" when the
-    # path is already a mount point. Disable DynamicUser and use a static user
-    # instead so systemd leaves the existing mount alone.
-    users.users.conduit = {
-      isSystemUser = true;
-      group = "conduit";
-      home = "/var/lib/matrix-conduit";
-    };
-    users.groups.conduit = { };
+    services.caddy.virtualHosts."matrix.versionthirtythr.ee" = {
+      extraConfig = ''
+        reverse_proxy /_matrix/* http://127.0.0.1:6167
+        reverse_proxy /_synapse/client/* http://127.0.0.1:6167
 
-    systemd.services.conduit.serviceConfig = {
-      DynamicUser = false;
-      User = "conduit";
-      Group = "conduit";
+        handle /.well-known/matrix/server {
+          respond `{"m.server":"matrix.versionthirtythr.ee:443"}` 200
+        }
+
+        handle /.well-known/matrix/client {
+          respond `{"m.homeserver":{"base_url":"https://matrix.versionthirtythr.ee"}}` 200
+          header Access-Control-Allow-Origin "*"
+        }
+      '';
     };
 
-    # Caddy reverse proxy configuration
-    services.caddy.virtualHosts = {
-      "matrix.versionthirtythr.ee" = {
-        extraConfig = ''
-          reverse_proxy /_matrix/* http://localhost:6167
-          reverse_proxy /_synapse/client/* http://localhost:6167
-        '';
-      };
-
-      # Serve Matrix delegation from the root domain via Conduit
-      "versionthirtythr.ee" = {
-        extraConfig = ''
-          reverse_proxy /.well-known/matrix/* http://localhost:6167
-        '';
-      };
-    };
+    # Federation port — must be publicly reachable
+    networking.firewall.allowedTCPPorts = [ 8448 ];
   };
 
 }
