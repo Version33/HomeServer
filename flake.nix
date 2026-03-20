@@ -1,7 +1,6 @@
 # DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
-
   outputs = inputs: import ./. inputs;
 
   inputs = {
@@ -13,5 +12,4 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     treefmt-nix.url = "github:numtide/treefmt-nix";
   };
-
 }
