@@ -41,6 +41,24 @@
       };
     };
 
+    # /var/lib/matrix-conduit is a bind mount from /mnt/bigdisk/matrix-db.
+    # DynamicUser=true causes systemd to re-bind the StateDirectory into a
+    # private namespace, which fails with "Device or resource busy" when the
+    # path is already a mount point. Disable DynamicUser and use a static user
+    # instead so systemd leaves the existing mount alone.
+    users.users.conduit = {
+      isSystemUser = true;
+      group = "conduit";
+      home = "/var/lib/matrix-conduit";
+    };
+    users.groups.conduit = { };
+
+    systemd.services.conduit.serviceConfig = {
+      DynamicUser = false;
+      User = "conduit";
+      Group = "conduit";
+    };
+
     # Caddy reverse proxy configuration
     services.caddy.virtualHosts = {
       "matrix.versionthirtythr.ee" = {
