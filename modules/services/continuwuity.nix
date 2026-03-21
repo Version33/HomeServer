@@ -12,7 +12,7 @@
       settings.global = {
         # Bind only on localhost; Caddy handles TLS termination
         address = [ "127.0.0.1" ];
-        port = 6167;
+        port = [ 6167 ];
 
         # The Matrix server_name that appears in user IDs: @user:versionthirtythr.ee
         server_name = "versionthirtythr.ee";
