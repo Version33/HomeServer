@@ -32,27 +32,24 @@
       secretFile = "/etc/secrets/matrix-conduit";
     };
 
-    # Caddy reverse proxy for Matrix clients (port 443)
-    # and federation (port 8448) - no well-known delegation needed
+    # Caddy reverse proxy - clients and federation both via versionthirtythr.ee
     services.caddy.virtualHosts = {
-      "matrix.versionthirtythr.ee" = {
+      "versionthirtythr.ee" = {
         extraConfig = ''
           reverse_proxy /_matrix/* http://localhost:6167
         '';
       };
 
-      # Federation: remote Matrix servers connect directly on port 8448
-      "matrix.versionthirtythr.ee:8448" = {
+      # Federation: remote servers connect on port 8448
+      "versionthirtythr.ee:8448" = {
         extraConfig = ''
           reverse_proxy /_matrix/* http://localhost:6167
         '';
       };
     };
 
-    # Port 8448 must be open for Matrix federation (server-to-server traffic).
-    # This requires a router port-forward for 8448 -> this machine.
     networking.firewall.allowedTCPPorts = [
-      8448 # Matrix federation (server-to-server)
+      8448 # Matrix federation
     ];
 
     # LAN direct access to the Conduit port (optional, for local clients)
