@@ -32,8 +32,8 @@
       secretFile = "/etc/secrets/matrix-conduit";
     };
 
-    # Caddy reverse proxy - serves Matrix federation on port 8448 as well
-    # matrix.versionthirtythr.ee handles both /_matrix/* traffic and federation
+    # Caddy reverse proxy for Matrix clients (port 443)
+    # and federation (port 8448) - no well-known delegation needed
     services.caddy.virtualHosts = {
       "matrix.versionthirtythr.ee" = {
         extraConfig = ''
@@ -41,17 +41,10 @@
         '';
       };
 
-      # Well-known delegation so @user:versionthirtythr.ee resolves to this server.
-      # Serves /.well-known/matrix/* from the root domain.
-      "versionthirtythr.ee" = {
+      # Federation: remote Matrix servers connect directly on port 8448
+      "matrix.versionthirtythr.ee:8448" = {
         extraConfig = ''
-          handle /.well-known/matrix/server {
-            respond `{"m.server":"matrix.versionthirtythr.ee:443"}` 200
-          }
-          handle /.well-known/matrix/client {
-            header Access-Control-Allow-Origin "*"
-            respond `{"m.homeserver":{"base_url":"https://matrix.versionthirtythr.ee"}}` 200
-          }
+          reverse_proxy /_matrix/* http://localhost:6167
         '';
       };
     };
