@@ -35,9 +35,6 @@
         }
       '';
     };
-
-    # Federation port — must be publicly reachable
-    networking.firewall.allowedTCPPorts = [ 8448 ];
   };
 
 }
