@@ -5,7 +5,7 @@
     services = {
       zigbee2mqtt = {
         enable = true;
-        config = {
+        settings = {
           homeassistant.enabled = true;
           permit_join = true;
           serial = {
