@@ -15,7 +15,7 @@
       btop # Modern process viewer
       duf # Better df
       dust # Better du
-      lsusb
+      usbutils
 
       # File management
       tree
