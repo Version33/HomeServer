@@ -14,7 +14,10 @@
               port = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_922c6889026bef11baba99adc169b110-if00-port0";
               adapter = "zstack";
             };
-            frontend.enabled = true;
+            frontend = {
+              enabled = true;
+              port = 8081;
+            };
             homeassistant.enabled = true;
           };
         };
