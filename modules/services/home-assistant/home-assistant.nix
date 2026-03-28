@@ -12,7 +12,7 @@
           "zwave_js"
           "isal"
           "radio_browser"
-          "zha"
+          "mqtt"
           "sun"
           "mobile_app"
           "bluetooth"
