@@ -5,12 +5,13 @@
     services = {
       zigbee2mqtt = {
         enable = true;
+        config = {
           homeassistant.enabled = true;
           permit_join = true;
           serial = {
             port = "/dev/ttyACM1";
           };
-
+        };
       };
 
       mosquitto = {
