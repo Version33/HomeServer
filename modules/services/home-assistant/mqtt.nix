@@ -6,11 +6,22 @@
       zigbee2mqtt = {
         enable = true;
         settings = {
-          homeassistant.enabled = true;
-          permit_join = true;
-          serial = {
-            port = "/dev/ttyACM1";
+          mqtt = {
+            base_topic = "zigbee2mqtt";
+            server = "mqtt://localhost:1883";
           };
+          serial = {
+            port = "/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_922c6889026bef11baba99adc169b110-if00-port0";
+            adapter = "zstack";
+          };
+          advanced = {
+            channel = 11;
+            network_key = "GENERATE";
+            pan_id = "GENERATE";
+            ext_pan_id = "GENERATE";
+          };
+          frontend.enabled = true;
+          homeassistant.enabled = true;
         };
       };
 
@@ -24,11 +35,6 @@
           }
         ];
       };
-    };
-
-    networking.firewall = {
-      enable = true;
-      allowedTCPPorts = [ 1883 ];
     };
   };
 
