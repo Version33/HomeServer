@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.state-version = _: {
     # NixOS version that the system was originally installed with

@@ -1,6 +1,7 @@
-{ ... }: {
+{
 
-  flake.modules.nixos.minecraft-server = { pkgs, ... }:
+  flake.modules.nixos.minecraft-server =
+    { pkgs, ... }:
     let
       purpur = pkgs.papermc.overrideAttrs (old: rec {
         pname = "purpur";
@@ -10,7 +11,8 @@
           hash = "sha256-7hFHeENdv+wCixzxIKSiv6uo5YNWTS4i9951kTWyVvo=";
         };
       });
-    in {
+    in
+    {
       services.minecraft-server = {
         enable = false;
         eula = true;
@@ -18,8 +20,7 @@
 
         package = purpur;
 
-        jvmOpts =
-          "-Xmx4G -Xms4G -Dpaper.disableWorldSymlinkValidation=true -Dpaper.disableResourcePackSymlinkValidation=true";
+        jvmOpts = "-Xmx4G -Xms4G -Dpaper.disableWorldSymlinkValidation=true -Dpaper.disableResourcePackSymlinkValidation=true";
 
         serverProperties = {
           server-port = 25565;

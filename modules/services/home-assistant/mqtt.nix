@@ -1,6 +1,8 @@
 {
 
-  flake.modules.nixos.mqtt = { pkgs, ... }: {
+  flake.modules.nixos.mqtt =
+    { pkgs, ... }:
+    {
 
       services = {
         zigbee2mqtt = {

@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.wyoming = _: {
     services.wyoming.piper.servers.default = {
@@ -14,7 +14,10 @@
       language = "en";
     };
 
-    networking.firewall.allowedTCPPorts = [ 10200 10300 ];
+    networking.firewall.allowedTCPPorts = [
+      10200
+      10300
+    ];
   };
 
 }

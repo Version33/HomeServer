@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.qbittorrent = _: {
     # QBitTorrent - Torrent client with web UI

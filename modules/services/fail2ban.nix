@@ -1,10 +1,14 @@
-{ ... }: {
+{
 
   flake.modules.nixos.fail2ban = _: {
     services.fail2ban = {
       enable = true;
       maxretry = 5;
-      ignoreIP = [ "127.0.0.1/8" "::1" "192.168.1.0/24" ];
+      ignoreIP = [
+        "127.0.0.1/8"
+        "::1"
+        "192.168.1.0/24"
+      ];
       bantime = "1h";
       bantime-increment = {
         enable = true;

@@ -1,6 +1,7 @@
-{ ... }: {
+{
 
-  flake.modules.nixos.lovelace-cards = { config, pkgs, ... }:
+  flake.modules.nixos.lovelace-cards =
+    { config, pkgs, ... }:
     let
       # Lovelace cards (frontend plugins)
       # Cards with pre-built JS in their GitHub repos
@@ -34,49 +35,57 @@
 
       # Cards with pre-built JS files as release assets
       # Download the JS file and create a directory structure
-      mushroom = pkgs.runCommand "mushroom" {
-        js = pkgs.fetchurl {
-          url =
-            "https://github.com/piitaya/lovelace-mushroom/releases/download/v5.0.8/mushroom.js";
-          hash = "sha256-Amnr9UlsYlZ5i41yfXd8XwnEtnLJCxi2/mZ3xfJPCHk=";
-        };
-      } ''
-        mkdir -p $out
-        cp $js $out/mushroom.js
-      '';
+      mushroom =
+        pkgs.runCommand "mushroom"
+          {
+            js = pkgs.fetchurl {
+              url = "https://github.com/piitaya/lovelace-mushroom/releases/download/v5.0.8/mushroom.js";
+              hash = "sha256-Amnr9UlsYlZ5i41yfXd8XwnEtnLJCxi2/mZ3xfJPCHk=";
+            };
+          }
+          ''
+            mkdir -p $out
+            cp $js $out/mushroom.js
+          '';
 
-      button-card = pkgs.runCommand "button-card" {
-        js = pkgs.fetchurl {
-          url =
-            "https://github.com/custom-cards/button-card/releases/download/v7.0.1/button-card.js";
-          hash = "sha256-XW6cavygHoAUZT+la7XWqpJI2DLDT7lEp/LDYym8ItE=";
-        };
-      } ''
-        mkdir -p $out
-        cp $js $out/button-card.js
-      '';
+      button-card =
+        pkgs.runCommand "button-card"
+          {
+            js = pkgs.fetchurl {
+              url = "https://github.com/custom-cards/button-card/releases/download/v7.0.1/button-card.js";
+              hash = "sha256-XW6cavygHoAUZT+la7XWqpJI2DLDT7lEp/LDYym8ItE=";
+            };
+          }
+          ''
+            mkdir -p $out
+            cp $js $out/button-card.js
+          '';
 
-      tabbed-card = pkgs.runCommand "tabbed-card" {
-        js = pkgs.fetchurl {
-          url =
-            "https://github.com/kinghat/tabbed-card/releases/download/v0.3.3/tabbed-card.js";
-          hash = "sha256-bq1fmXdAtrTxYtJoMqSypvvLwFB7jpRw8PaiUa6OkBo=";
-        };
-      } ''
-        mkdir -p $out
-        cp $js $out/tabbed-card.js
-      '';
+      tabbed-card =
+        pkgs.runCommand "tabbed-card"
+          {
+            js = pkgs.fetchurl {
+              url = "https://github.com/kinghat/tabbed-card/releases/download/v0.3.3/tabbed-card.js";
+              hash = "sha256-bq1fmXdAtrTxYtJoMqSypvvLwFB7jpRw8PaiUa6OkBo=";
+            };
+          }
+          ''
+            mkdir -p $out
+            cp $js $out/tabbed-card.js
+          '';
 
-      config-template-card = pkgs.runCommand "config-template-card" {
-        js = pkgs.fetchurl {
-          url =
-            "https://github.com/iantrich/config-template-card/releases/download/1.3.6/config-template-card.js";
-          hash = "sha256-7O48fgoQkg6aQy3i5/H5UGrnQkJelXQdGDW71N6lbC4=";
-        };
-      } ''
-        mkdir -p $out
-        cp $js $out/config-template-card.js
-      '';
+      config-template-card =
+        pkgs.runCommand "config-template-card"
+          {
+            js = pkgs.fetchurl {
+              url = "https://github.com/iantrich/config-template-card/releases/download/1.3.6/config-template-card.js";
+              hash = "sha256-7O48fgoQkg6aQy3i5/H5UGrnQkJelXQdGDW71N6lbC4=";
+            };
+          }
+          ''
+            mkdir -p $out
+            cp $js $out/config-template-card.js
+          '';
 
       # FontAwesome integration (custom component, not a lovelace card)
       fontawesome = pkgs.buildHomeAssistantComponent rec {
@@ -91,7 +100,8 @@
         };
       };
 
-    in {
+    in
+    {
       # Create www/community directory with correct ownership
       # Use Z flag to recursively fix ownership and permissions
       systemd.tmpfiles.rules = [

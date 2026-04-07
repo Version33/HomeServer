@@ -1,6 +1,12 @@
-{ ... }: {
+{
 
-  flake.modules.nixos.bambu-lab-media = { config, pkgs, lib, ... }:
+  flake.modules.nixos.bambu-lab-media =
+    {
+      config,
+      pkgs,
+      lib,
+      ...
+    }:
     let
       # Download and extract the Bambu Lab media files
       # Source: https://www.wolfwithsword.com/bambulab-home-assistant-dashboard/
@@ -8,8 +14,7 @@
         name = "bambu-ha-media-files";
         version = "nightly";
         src = pkgs.fetchzip {
-          url =
-            "https://github.com/WolfwithSword/Bambu-HomeAssistant-Flows/releases/download/nightly/bambu-ha-media-files.zip";
+          url = "https://github.com/WolfwithSword/Bambu-HomeAssistant-Flows/releases/download/nightly/bambu-ha-media-files.zip";
           hash = "sha256-6EKSJ47zPjt5uLZ5fcwjs/wwv3pA90uSVNp5t+bwKgo=";
           stripRoot = false;
         };
@@ -18,7 +23,8 @@
           cp -r * $out/
         '';
       };
-    in {
+    in
+    {
       # Link the media files into Home Assistant's config directory
       # www/media/bambuprinter/*.png - Printer images
       # custom_icons/*.svg - FontAwesome filament icons

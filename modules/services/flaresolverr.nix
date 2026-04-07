@@ -1,37 +1,41 @@
-{ ... }: {
+{
 
-  flake.modules.nixos.flaresolverr = { pkgs, ... }: {
-    systemd.services.flaresolverr = {
-      description =
-        "FlareSolverr - Proxy server to bypass Cloudflare protection";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+  flake.modules.nixos.flaresolverr =
+    { pkgs, ... }:
+    {
+      systemd.services.flaresolverr = {
+        description = "FlareSolverr - Proxy server to bypass Cloudflare protection";
+        after = [ "network.target" ];
+        wantedBy = [ "multi-user.target" ];
 
-      serviceConfig = {
-        Type = "simple";
-        User = "flaresolverr";
-        Group = "media";
-        ExecStart = "${pkgs.flaresolverr}/bin/flaresolverr";
-        Restart = "on-failure";
-        RestartSec = "5s";
+        serviceConfig = {
+          Type = "simple";
+          User = "flaresolverr";
+          Group = "media";
+          ExecStart = "${pkgs.flaresolverr}/bin/flaresolverr";
+          Restart = "on-failure";
+          RestartSec = "5s";
 
-        Environment = [ "LOG_LEVEL=info" "PORT=8191" ];
+          Environment = [
+            "LOG_LEVEL=info"
+            "PORT=8191"
+          ];
 
-        UMask = "0002";
+          UMask = "0002";
+        };
       };
-    };
 
-    users.users.flaresolverr = {
-      isSystemUser = true;
-      group = "media";
-      home = "/var/lib/flaresolverr";
-      createHome = true;
-    };
+      users.users.flaresolverr = {
+        isSystemUser = true;
+        group = "media";
+        home = "/var/lib/flaresolverr";
+        createHome = true;
+      };
 
-    # Firewall configuration for local network access
-    networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [
-      8191 # FlareSolverr
-    ];
-  };
+      # Firewall configuration for local network access
+      networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [
+        8191 # FlareSolverr
+      ];
+    };
 
 }

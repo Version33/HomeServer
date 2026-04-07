@@ -1,13 +1,14 @@
-{ ... }: {
+{
 
-  flake.modules.nixos.minecraft-plugin-tabtps = { pkgs, ... }:
+  flake.modules.nixos.minecraft-plugin-tabtps =
+    { pkgs, ... }:
     let
       tabtps = pkgs.fetchurl {
-        url =
-          "https://github.com/jpenilla/TabTPS/releases/download/v1.3.29/tabtps-paper-1.3.29.jar";
+        url = "https://github.com/jpenilla/TabTPS/releases/download/v1.3.29/tabtps-paper-1.3.29.jar";
         sha256 = "fX47EMVBXwwqKXh+UNmD1Pb5tMwdAkRMkMXZhq9en5M=";
       };
-    in {
+    in
+    {
       systemd.tmpfiles.rules = [
         "L+ /var/lib/minecraft/plugins/tabtps-paper-1.3.29.jar - - - - ${tabtps}"
       ];

@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.nixarr = _: {
     # Nixarr configuration for *arr apps
@@ -18,19 +18,29 @@
       # };
 
       # Jellyfin - Media Server
-      jellyfin = { enable = true; };
+      jellyfin = {
+        enable = true;
+      };
 
       # Radarr - Movie management
-      radarr = { enable = true; };
+      radarr = {
+        enable = true;
+      };
 
       # Sonarr - TV show management
-      sonarr = { enable = true; };
+      sonarr = {
+        enable = true;
+      };
 
       # Prowlarr - Indexer management
-      prowlarr = { enable = true; };
+      prowlarr = {
+        enable = true;
+      };
 
       # Jellyseerr - Request management for Jellyfin
-      jellyseerr = { enable = true; };
+      jellyseerr = {
+        enable = true;
+      };
 
       # lidarr = {
       #   enable = true;
@@ -50,7 +60,7 @@
 
     # Fix permissions for Sonarr/Radarr to write to library directories
     # systemd.services.sonarr.serviceConfig.UMask = "0002";
-    
+
     # systemd.services.radarr.serviceConfig.UMask = "0002";
 
     # Add jellyfin user to video group for hardware acceleration

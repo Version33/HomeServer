@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.programs = _: {
     # Neovim configuration

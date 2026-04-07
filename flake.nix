@@ -6,7 +6,7 @@
   inputs = {
     flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    home-manager.url = "github:nix-community/home-manager";
+    nioxs.url = "github:Version33/linux-nixos-config-dotfiles";
     import-tree.url = "github:vic/import-tree";
     nixarr.url = "github:rasmus-kirk/nixarr";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.nix-settings = _: {
     # ============================================================================
@@ -6,7 +6,10 @@
     # ============================================================================
     nix.settings = {
       # Enable flakes and new nix command
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
       # --------------------------------------------------------------------------
       # Performance & Storage Optimization
@@ -18,8 +21,7 @@
       # --------------------------------------------------------------------------
       # Network & Download Settings
       # --------------------------------------------------------------------------
-      http-connections =
-        50; # Increase from default 25 for faster parallel downloads
+      http-connections = 50; # Increase from default 25 for faster parallel downloads
 
       # Log download URLs to help debug slow fetches
       log-lines = 25;
@@ -29,8 +31,7 @@
       # --------------------------------------------------------------------------
       substituters = [ "https://cache.nixos.org" ];
 
-      trusted-public-keys =
-        [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
 
       # --------------------------------------------------------------------------
       # User Experience
@@ -42,7 +43,10 @@
       # Security & Trust
       # --------------------------------------------------------------------------
       # Trust wheel group users for privileged operations
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
     };
   };
 

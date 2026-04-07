@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.minecraft-datapacks = _: {
     environment.etc."minecraft/allowed_symlinks.txt".text = ''

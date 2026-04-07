@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.openssh = _: {
     # Enable SSH for remote management

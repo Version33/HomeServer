@@ -1,4 +1,4 @@
-{ ... }: {
+{
 
   flake.modules.nixos.networking = _: {
     # Hostname
@@ -15,7 +15,11 @@
     networking.firewall = {
       enable = true;
       # SSH and Caddy web server ports
-      allowedTCPPorts = [ 22 80 443 ];
+      allowedTCPPorts = [
+        22
+        80
+        443
+      ];
     };
 
     # Network configuration for main interface
@@ -23,7 +27,9 @@
       enable = true;
       networks."10-wan" = {
         matchConfig.Name = "enp*";
-        networkConfig = { DHCP = "yes"; };
+        networkConfig = {
+          DHCP = "yes";
+        };
       };
     };
   };

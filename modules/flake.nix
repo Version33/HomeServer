@@ -1,4 +1,5 @@
-{ inputs, self, ... }: {
+{ inputs, self, ... }:
+{
   # Import flake-parts modules and tools
   imports = [
     inputs.flake-parts.flakeModules.modules
@@ -12,10 +13,8 @@
   # Define core flake inputs here
   flake-file.inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Core system packages
-    home-manager.url =
-      "github:nix-community/home-manager"; # User environment manager
-    flake-parts.url =
-      "github:hercules-ci/flake-parts"; # Module system for flakes
+    nioxs.url = "github:Version33/linux-nixos-config-dotfiles"; # Wrapped shell tools
+    flake-parts.url = "github:hercules-ci/flake-parts"; # Module system for flakes
     import-tree.url = "github:vic/import-tree"; # Automatic module discovery
 
     # Media server suite
@@ -38,49 +37,40 @@
 
         # nixarr media suite
         inputs.nixarr.nixosModules.default
-
-        # Home Manager integration
-        inputs.home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = { inherit inputs; };
-          # Load all dendritic home-manager modules
-          home-manager.sharedModules =
-            builtins.attrValues (self.modules.homeManager or { });
-        }
       ]
       # Load all dendritic NixOS modules
-        ++ (builtins.attrValues self.modules.nixos);
+      ++ (builtins.attrValues self.modules.nixos);
     };
   };
 
   # Development environment & formatting
-  perSystem = { pkgs, ... }: {
-    # Configure treefmt
-    treefmt = {
-      projectRootFile = "flake.nix";
-      programs.nixfmt.enable = true;
-      programs.nixfmt.package = pkgs.nixfmt;
-    };
+  perSystem =
+    { pkgs, ... }:
+    {
+      # Configure treefmt
+      treefmt = {
+        projectRootFile = "flake.nix";
+        programs.nixfmt.enable = true;
+        programs.nixfmt.package = pkgs.nixfmt;
+      };
 
-    # Development Shell
-    devShells.default = pkgs.mkShell {
-      packages = with pkgs; [
-        # Nix development tools
-        nil # Nix language server
-        nixfmt # Nix formatter
-        statix # Lints and suggestions for Nix code
-        deadnix # Find and remove unused code
-        nix-tree # Visualize dependency tree
-        nix-output-monitor # Better build output (alias: nom)
+      # Development Shell
+      devShells.default = pkgs.mkShell {
+        packages = with pkgs; [
+          # Nix development tools
+          nil # Nix language server
+          nixfmt # Nix formatter
+          statix # Lints and suggestions for Nix code
+          deadnix # Find and remove unused code
+          nix-tree # Visualize dependency tree
+          nix-output-monitor # Better build output (alias: nom)
 
-        # Useful utilities
-        git
-        just # Command runner (for justfile)
-        curl
-        jq
-      ];
+          # Useful utilities
+          git
+          just # Command runner (for justfile)
+          curl
+          jq
+        ];
+      };
     };
-  };
 }
