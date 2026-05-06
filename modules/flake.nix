@@ -13,12 +13,15 @@
   # Define core flake inputs here
   flake-file.inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Core system packages
-    nioxs.url = "github:Version33/linux-nixos-config-dotfiles"; # Wrapped shell tools
+    nioxs.url = "github:Version33/dotfiles"; # Wrapped shell tools
     flake-parts.url = "github:hercules-ci/flake-parts"; # Module system for flakes
     import-tree.url = "github:vic/import-tree"; # Automatic module discovery
 
     # Media server suite
     nixarr.url = "github:rasmus-kirk/nixarr";
+
+    # Minecraft server management
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     # Boilerplate reduction tools
     flake-file.url = "github:vic/flake-file"; # Generates flake.nix from modules
@@ -37,6 +40,7 @@
 
         # nixarr media suite
         inputs.nixarr.nixosModules.default
+
       ]
       # Load all dendritic NixOS modules
       ++ (builtins.attrValues self.modules.nixos);

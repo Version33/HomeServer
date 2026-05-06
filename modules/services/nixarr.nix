@@ -37,8 +37,8 @@
         enable = true;
       };
 
-      # Jellyseerr - Request management for Jellyfin
-      jellyseerr = {
+      # Seerr - Request management for Jellyfin
+      seerr = {
         enable = true;
       };
 
