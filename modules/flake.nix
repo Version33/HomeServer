@@ -13,7 +13,7 @@
   # Define core flake inputs here
   flake-file.inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable"; # Core system packages
-    nioxs.url = "github:Version33/dotfiles"; # Wrapped shell tools
+    dotfiles.url = "github:Version33/dotfiles"; # Wrapped shell tools
     flake-parts.url = "github:hercules-ci/flake-parts"; # Module system for flakes
     import-tree.url = "github:vic/import-tree"; # Automatic module discovery
 

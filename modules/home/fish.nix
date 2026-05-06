@@ -4,7 +4,7 @@
     {
       programs.fish = {
         enable = true;
-        package = inputs.nioxs.packages.${pkgs.stdenv.hostPlatform.system}.fish;
+        package = inputs.dotfiles.packages.${pkgs.stdenv.hostPlatform.system}.fish;
       };
 
       programs.direnv = {
