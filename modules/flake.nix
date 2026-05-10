@@ -25,6 +25,7 @@
 
     # Boilerplate reduction tools
     flake-file.url = "github:vic/flake-file"; # Generates flake.nix from modules
+    nix-auto-follow.url = "github:fzakaria/nix-auto-follow"; # Fixes input version duplications
     treefmt-nix.url = "github:numtide/treefmt-nix"; # Project-wide formatting
   };
 
@@ -68,6 +69,10 @@
           deadnix # Find and remove unused code
           nix-tree # Visualize dependency tree
           nix-output-monitor # Better build output (alias: nom)
+
+          # Development environment tools
+          direnv # Automatic environment activation
+          nix-direnv # Fast direnv integration for Nix
 
           # Useful utilities
           git

@@ -29,9 +29,17 @@
       # --------------------------------------------------------------------------
       # Binary Caches (Substituters)
       # --------------------------------------------------------------------------
-      substituters = [ "https://cache.nixos.org" ];
+      # Using nix-community cache speeds up builds for packages like lanzaboote
+      # Reference: https://nix.dev/guides/recipes/add-binary-cache
+      substituters = [
+        "https://cache.nixos.org"
+        "https://nix-community.cachix.org"
+      ];
 
-      trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
 
       # --------------------------------------------------------------------------
       # User Experience
@@ -48,6 +56,18 @@
         "@wheel"
       ];
     };
+
+    # ============================================================================
+    # Garbage Collection
+    # ============================================================================
+    nix.gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 14d";
+    };
+
+    nix.optimise.automatic = true;
+    nix.optimise.dates = [ "03:45" ];
   };
 
 }

@@ -88,7 +88,7 @@
           '';
 
       # FontAwesome integration (custom component, not a lovelace card)
-      fontawesome = pkgs.buildHomeAssistantComponent rec {
+      fontawesome = pkgs.buildHomeAssistantComponent {
         owner = "thomasloven";
         domain = "fontawesome";
         version = "2.2.0";
