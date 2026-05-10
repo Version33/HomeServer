@@ -8,6 +8,7 @@
     flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
     import-tree.url = "github:vic/import-tree";
+    nix-auto-follow.url = "github:fzakaria/nix-auto-follow";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     nixarr.url = "github:rasmus-kirk/nixarr";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
