@@ -3,17 +3,17 @@
   flake.modules.nixos.fmd =
     { pkgs, ... }:
     {
+      networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [
+        8082 # FMD Server web UI / app registration
+      ];
+
       services.caddy.virtualHosts = {
         "fmd.versionthirtythr.ee" = {
           extraConfig = ''
-            reverse_proxy http://localhost:8080
+            reverse_proxy http://localhost:8082
           '';
         };
       };
-
-      networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [
-        8080 # FMD Server web UI / app registration
-      ];
 
       systemd.services.fmd-server = {
         description = "FMD Server - FindMyDevice location server";
@@ -33,7 +33,7 @@
 
           Environment = [
             "FMD_DATABASEDIR=/var/lib/fmd-server"
-            "FMD_PORTINSECURE=8080"
+            "FMD_PORTINSECURE=8082"
             "FMD_REMOTEIPHEADER=X-Forwarded-For"
           ];
 

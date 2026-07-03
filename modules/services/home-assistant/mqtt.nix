@@ -4,6 +4,8 @@
     { pkgs, ... }:
     {
 
+      networking.firewall.interfaces."enp0s31f6".allowedTCPPorts = [ 8081 ];
+
       services = {
         zigbee2mqtt = {
           enable = true;
@@ -19,6 +21,7 @@
             frontend = {
               enabled = true;
               port = 8081;
+              host = "0.0.0.0";
             };
             homeassistant.enabled = true;
           };
