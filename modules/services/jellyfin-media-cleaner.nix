@@ -19,8 +19,8 @@
         nativeBuildInputs = [ pkgs.unzip ];
         unpackPhase = "unzip $src";
         installPhase = ''
-          mkdir -p "$out/Media Cleaner"
-          cp -r * "$out/Media Cleaner/"
+          mkdir -p "$out/MediaCleaner"
+          cp -r * "$out/MediaCleaner/"
         '';
       };
     in
@@ -29,8 +29,7 @@
       # Configure rules via Jellyfin web UI: Dashboard > Plugins > Media Cleaner.
       config = mkIf config.services.jellyfin.enable {
         systemd.tmpfiles.rules = [
-          "d /var/lib/jellyfin/plugins 0755 jellyfin jellyfin -"
-          "L+ /var/lib/jellyfin/plugins/Media Cleaner - - - - ${mediaCleanerPlugin}/Media Cleaner"
+          "L+ ${config.services.jellyfin.dataDir}/plugins/MediaCleaner - - - - ${mediaCleanerPlugin}/MediaCleaner"
         ];
       };
     };
