@@ -71,6 +71,7 @@
           nix-output-monitor # Better build output (alias: nom)
 
           # Development environment tools
+          inputs.deploy-rs.packages.${pkgs.stdenv.hostPlatform.system}.default # Remote deploys
           direnv # Automatic environment activation
           nix-direnv # Fast direnv integration for Nix
 

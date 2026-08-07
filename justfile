@@ -8,10 +8,25 @@ default:
 build:
     nixos-rebuild build --flake .#homeserver
 
-# Deploy to the server
+# Deploy to the server (build locally, push closure, activate with magic rollback)
 deploy:
-    @echo "Deploying to home server..."
-    ssh -t homeserver "cd ~/Git/homeserver; git pull; sudo nixos-rebuild switch --flake ~/Git/homeserver"
+    deploy .#homeserver
+
+# Push and evaluate the activation on the server without switching to it
+deploy-dry:
+    deploy .#homeserver --dry-activate
+
+# Deploy, but only make the config active from the next boot
+deploy-boot:
+    deploy .#homeserver --boot
+
+# Deploy prompting for the sudo password; needed before the NOPASSWD rule is live
+deploy-interactive:
+    deploy .#homeserver --interactive-sudo true
+
+# Roll the server back to its previous system generation
+rollback:
+    ssh -t homeserver "sudo nix-env --rollback -p /nix/var/nix/profiles/system && sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch"
 
 # Update flake inputs
 update:
@@ -41,27 +56,26 @@ flake-info:
 dry-run:
     nixos-rebuild dry-build --flake .#homeserver
 
-# Clean up old generations (keeps last 30 days)
+# Clean up old generations on the server (keeps last 30 days)
 clean:
-    sudo nix-collect-garbage --delete-older-than 30d
-    sudo nixos-rebuild switch --flake .#homeserver
+    ssh -t homeserver "sudo nix-collect-garbage --delete-older-than 30d"
 
-# List all generations
+# List the server's system generations
 generations:
-    sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+    ssh homeserver "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system"
 
-# Show disk usage of nix store
+# Show disk usage of the server's nix store
 disk-usage:
-    du -sh /nix/store
+    ssh homeserver "du -sh /nix/store"
 
-# Optimize nix store
+# Optimize the server's nix store
 optimize:
-    sudo nix-store --optimize
+    ssh -t homeserver "sudo nix-store --optimize"
 
-# Show closure diff between current and new build
+# Closure diff: server's running system vs a fresh local build (needs its closure locally)
 diff:
     nixos-rebuild build --flake .#homeserver
-    nix store diff-closures /run/current-system ./result
+    nix store diff-closures "$(ssh homeserver readlink -f /run/current-system)" ./result
 
 # Search for a package
 search PACKAGE:

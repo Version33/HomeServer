@@ -4,6 +4,10 @@
   outputs = inputs: import ./. inputs;
 
   inputs = {
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     dotfiles.url = "github:Version33/dotfiles";
     flake-file.url = "github:vic/flake-file";
     flake-parts.url = "github:hercules-ci/flake-parts";
