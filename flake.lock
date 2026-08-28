@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1787704008,
-        "narHash": "sha256-VkREYmOfzd2chbrg9I5/mfCL21bug0z8MT8rinu9vKo=",
+        "lastModified": 1787841539,
+        "narHash": "sha256-aRCRY9RC/PQl/ftoBO0Ju8h/dX9lXhr7dPfq4LokUl4=",
         "owner": "shibco",
         "repo": "ableton-linux",
-        "rev": "54933547bef023d937e3b5cb23d438afab7905bc",
+        "rev": "ff4a27fe4065bc3acb7a81367bff9b9bc54ebf57",
         "type": "github"
       },
       "original": {
@@ -83,6 +83,7 @@
         "ableton-linux": "ableton-linux",
         "audio-nix": "audio-nix",
         "evo-control": "evo-control",
+        "feedback-nightly": "feedback-nightly",
         "fenix": "fenix_2",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts",
@@ -93,16 +94,17 @@
         "nixmate": "nixmate",
         "nixpkgs": "nixpkgs_2",
         "nvf": "nvf",
+        "orca-nightly": "orca-nightly",
         "tobiifree": "tobiifree",
         "treefmt-nix": "treefmt-nix",
         "wrapper-modules": "wrapper-modules"
       },
       "locked": {
-        "lastModified": 1787744862,
-        "narHash": "sha256-Ral2BSVcIaV4M4DN+fwk/vW3+pQAtHsAnl1oaGWzyp8=",
+        "lastModified": 1787890668,
+        "narHash": "sha256-gny9iA0gAPNIX8cC/b9cVKGj0zrbIUfEVjMcclgIVA0=",
         "owner": "Version33",
         "repo": "dotfiles",
-        "rev": "e3b1e3ff5758ec5ab713572a7b72809f6299f42b",
+        "rev": "60b897c8ec6e90a50c452693a505e7a4b7b9aca8",
         "type": "github"
       },
       "original": {
@@ -126,6 +128,18 @@
         "repo": "evo-control",
         "rev": "17043c73fa48378d130f9d85b14d687f886f2881",
         "type": "github"
+      }
+    },
+    "feedback-nightly": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-Bh3u9CCm7ifylQYPwHLcg7PLTwWkgVQztmrALHMjhqM=",
+        "type": "file",
+        "url": "https://github.com/got-feedback/feedBack-desktop/releases/download/nightly/feedback-0.3.0-x86_64.AppImage"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/got-feedback/feedBack-desktop/releases/download/nightly/feedback-0.3.0-x86_64.AppImage"
       }
     },
     "fenix": {
@@ -162,11 +176,11 @@
         "rust-analyzer-src": "rust-analyzer-src_2"
       },
       "locked": {
-        "lastModified": 1787727374,
-        "narHash": "sha256-6l/5/+1Qg73Zv8yh2mzmy8IKdB2g+EtyVucHpkIFsns=",
+        "lastModified": 1787851824,
+        "narHash": "sha256-hkUiwirNA/E0ZM/jkyl1KWh4tBwhwS/aesUjp6y0ARU=",
         "owner": "nix-community",
         "repo": "fenix",
-        "rev": "0bc017b037b7cb5a492758d7753182e9862ac342",
+        "rev": "2b240cd75dabb93338e1a3e6029898022bad0f52",
         "type": "github"
       },
       "original": {
@@ -552,11 +566,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1787708793,
-        "narHash": "sha256-Ovp8JorHAQbFNgenK0jTUnUU4tB7R9rS5Uao/L/dkg0=",
+        "lastModified": 1787914990,
+        "narHash": "sha256-MZXAF0a2SgJ2TnUpM9sSnGcRuenOHsCdESPokn3Qtbg=",
         "owner": "Infinidoge",
         "repo": "nix-minecraft",
-        "rev": "e81f8786718bd697348f66ef7023d1ddc4e5a0b6",
+        "rev": "5495072f8178188498cb2a1b1fe167cfa9ea31e8",
         "type": "github"
       },
       "original": {
@@ -642,11 +656,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1787498568,
-        "narHash": "sha256-9i/VTdusq/+NM/tz+J1Re+ojkMB8MBf0QshnYfzHz30=",
+        "lastModified": 1787736819,
+        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "56c02bc00adcf003215cc4bd996d6efaf4cff188",
+        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
         "type": "github"
       },
       "original": {
@@ -706,11 +720,11 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1787498568,
-        "narHash": "sha256-9i/VTdusq/+NM/tz+J1Re+ojkMB8MBf0QshnYfzHz30=",
+        "lastModified": 1787736819,
+        "narHash": "sha256-cV5xEJJK3BvhU8rEd4mC9UsmDi5qscv/kzGPhBRC5WA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "56c02bc00adcf003215cc4bd996d6efaf4cff188",
+        "rev": "9fbb54b33e91ee4ca368e35a78e0613c720600b3",
         "type": "github"
       },
       "original": {
@@ -746,17 +760,29 @@
         ]
       },
       "locked": {
-        "lastModified": 1787514376,
-        "narHash": "sha256-wS5a1tumQcmwamA4BpSvf2Idd/P/zOQNU1hY53EzfoM=",
+        "lastModified": 1787776375,
+        "narHash": "sha256-gxa6C1+Xfl0ys5h0X/ocusbwT3ABIdX38mrX3MRmPnM=",
         "owner": "NotAShelf",
         "repo": "nvf",
-        "rev": "460dad9e777df4008309f1d731a47b299dc7b41e",
+        "rev": "f019fe83c224eedb145982a9a26b764e7cb2fdd0",
         "type": "github"
       },
       "original": {
         "owner": "NotAShelf",
         "repo": "nvf",
         "type": "github"
+      }
+    },
+    "orca-nightly": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-4pEoHW9Sdl+jak++nzh8B8a3rP6iYZmTjDvtvumZ5/w=",
+        "type": "file",
+        "url": "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/nightly-builds/OrcaSlicer_Linux_AppImage_Ubuntu2404_nightly.AppImage"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://github.com/OrcaSlicer/OrcaSlicer/releases/download/nightly-builds/OrcaSlicer_Linux_AppImage_Ubuntu2404_nightly.AppImage"
       }
     },
     "pre-commit": {
@@ -816,11 +842,11 @@
     "rust-analyzer-src_2": {
       "flake": false,
       "locked": {
-        "lastModified": 1787676350,
-        "narHash": "sha256-X/jVFAnSyS3jR/cDGtxwQ04CgXGpnn08ylndBPYN328=",
+        "lastModified": 1787768781,
+        "narHash": "sha256-PMVtb917DTWjGLTQHHI+ATUguk7Wxuqu6J+DINiU+qI=",
         "owner": "rust-lang",
         "repo": "rust-analyzer",
-        "rev": "014d54b685ccc00f0774d755d1a4c889f7e8e512",
+        "rev": "70d74f4d134c45b073c82167fb7e7d61334bd8f5",
         "type": "github"
       },
       "original": {
