@@ -52,10 +52,10 @@
       #   # Readarr runs on port 8787 by default
       # };
 
-      # bazarr = {
-      #   enable = true;
-      #   # Bazarr runs on port 6767 by default
-      # };
+      bazarr = {
+        enable = true;
+        # Bazarr runs on port 6767 by default
+      };
     };
 
     # Fix permissions for Sonarr/Radarr to write to library directories
@@ -96,6 +96,7 @@
       7878 # Radarr
       8989 # Sonarr
       9696 # Prowlarr
+      6767 # Bazarr
     ];
   };
 
