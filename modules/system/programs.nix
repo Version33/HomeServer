@@ -1,6 +1,6 @@
 {
 
-  flake.modules.nixos.programs = _: {
+  flake.modules.nixos.programs = { pkgs, ... }: {
     # Neovim configuration
     programs.neovim = {
       enable = true;
@@ -20,7 +20,12 @@
 
     # System monitoring
     programs.htop.enable = true;
-    programs.iotop.enable = true;
+    # iotop-c: the Python iotop is a script, which the setuid-wrapper
+    # integrity check (ensure-wrapper-integrity) rejects as non-ELF.
+    programs.iotop = {
+      enable = true;
+      package = pkgs.iotop-c;
+    };
     programs.iftop.enable = true;
     programs.mtr.enable = true; # Network diagnostic tool
   };
