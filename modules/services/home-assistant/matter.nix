@@ -7,6 +7,8 @@
       port = 5580;
     };
 
+    systemd.services.matterjs-server.environment.HOME = "/var/lib/matterjs-server";
+
     services.home-assistant.extraComponents = [ "matter" ];
   };
 
