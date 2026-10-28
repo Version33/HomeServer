@@ -4,17 +4,6 @@
     { pkgs, ... }:
     {
       # Proton VPN WireGuard Configuration
-      #
-      # This VPN is ONLY for qbittorrent traffic.
-      # All other services use the regular internet connection.
-      #
-      # Setup steps:
-      # 1. Get WireGuard config from Proton:
-      #    - Log into https://account.protonvpn.com/
-      #    - Go to Downloads -> WireGuard configuration
-      #    - Download a config file for your preferred server
-      # 2. Extract the values and fill them in below
-      # 3. Enable this module in configuration.nix
 
       networking.wg-quick.interfaces = {
         protonvpn = {
