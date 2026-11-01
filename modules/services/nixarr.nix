@@ -4,12 +4,13 @@
   flake.modules.nixos.nixarr =
     { config, pkgs, ... }:
     let
-      # Upstream python-deps.nix has no OpenAPI spec hash for jellyfin 12.0.
+      # Upstream python-deps.nix lacks OpenAPI spec hashes for newer jellyfin versions.
       # Extend its table via the injected fetchurl; drop once upstream has it.
       nixarrPySrc = "${inputs.nixarr}/nixarr/lib/nixarr-py";
       jellyfin = config.nixarr.jellyfin.package;
       jellyfinSpecHashes = {
         "12.0" = "sha256-hu9rbOp+R0tbsjT0Tl639uj0WM5tfYT6uZ6NH0p1zjk=";
+        "12.4" = "sha256-AqYGSRa34I8fHY1//B+xx2I98ON4cp/Nf9NTdmhoA24=";
       };
       fetchurl =
         args: pkgs.fetchurl (args // { hash = jellyfinSpecHashes.${jellyfin.version} or args.hash; });

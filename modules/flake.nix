@@ -78,7 +78,6 @@
           nix-direnv # Fast direnv integration for Nix
 
           # Useful utilities
-          git
           just # Command runner (for justfile)
           curl
           jq
